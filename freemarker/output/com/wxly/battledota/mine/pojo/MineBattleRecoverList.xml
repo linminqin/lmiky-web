@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wxly.battledota.mine.pojo.MineBattleRecoverList">
+	<resultMap type="MineBattleRecoverList" id="mineBattleRecoverList" extends="com.wxly.battledota.database.pojo.BasePlayerPojo.basePlayerPojo">
+		<result column="recoverTime" property="recoverTime"/>
+	</resultMap>
+
+	<sql id="tableName">
+		t_mine_battle_recover_list
+	</sql>
+	<sql id="tableAlias">
+		MineBattleRecoverList
+	</sql>
+
+	<select id="find" resultMap="mineBattleRecoverList">
+		select * from 
+		<include refid="tableName"/> <include refid="tableAlias" />
+		<trim prefix="where">
+			<include refid="common.aliasPropertiesCondition"/>
+		</trim>
+	</select>
+	
+	<select id="findById" resultMap="mineBattleRecoverList">
+		select * from 
+		<include refid="tableName"/>
+		where id = #{id}
+	</select>
+	
+	<select id="list" resultMap="mineBattleRecoverList">
+		select * from
+		<include refid="tableName" /> <include refid="tableAlias" />
+		<trim prefix="where">
+			<include refid="common.aliasPropertiesCondition" />
+		</trim>
+		<include refid="common.sortCondition" />
+		<include refid="common.pageCondition" />
+	</select>
+
+	<insert id="add" parameterType="MineBattleRecoverList" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		insert into
+		<include refid="tableName" />
+		(
+			 id
+			,playerId
+			,recoverTime
+		)
+		values
+		(
+			 #{id}
+			,#{playerId}
+			,#{recoverTime}
+		)
+	</insert>
+	
+	<update id="update" parameterType="MineBattleRecoverList">
+		update <include refid="tableName" /> 
+		<trim prefix="set" suffixOverrides=",">
+			<if test="playerId != null">playerId=#{playerId},</if>
+			<if test="recoverTime != null">recoverTime=#{recoverTime},</if>
+		</trim>
+		where id=#{id}
+	</update>
+</mapper>

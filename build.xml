@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="lmiky-web" default="attack"
+		xmlns:artifact="urn:maven-artifact-ant">
+
+    <property file="build.properties" />
+
+	<target name="init">
+		<path id="maven-ant-tasks.classpath" path="${maven.ant.tasks.classpath}" />
+		<typedef uri="urn:maven-artifact-ant" classpathref="maven-ant-tasks.classpath"
+			resource="org/apache/maven/artifact/ant/antlib.xml" />
+
+		<artifact:pom id="maven.project" file="pom.xml" />
+		<artifact:dependencies pathId="classpath.build" filesetid="maven.fileset.build"
+				settingsfile="${maven.settings.file}">
+			<pom refid="maven.project" />
+		</artifact:dependencies>
+		<artifact:dependencies pathId="classpath.runtime" filesetid="maven.fileset.runtime"
+				settingsfile="${maven.settings.file}" useScope="runtime">
+			<pom refid="maven.project" />
+		</artifact:dependencies>
+	</target>
+
+	<target name="info" depends="init">
+		<echo>Maven build directory is ${maven.project.build.directory}</echo>
+		<echo>Maven build finalName is ${maven.project.build.finalName}</echo>
+		<echo>Maven build sourceDirectory directory is ${maven.project.build.sourceDirectory}</echo>
+		<echo>Maven build outputDirectory directory is ${maven.project.build.outputDirectory}</echo>
+		<echo>Maven build scriptSourceDirectory directory is ${maven.project.build.testSourceDirectory}</echo>
+		<echo>Maven build testOutputDirectory directory is ${maven.project.build.testOutputDirectory}</echo>
+		<echo>Maven build scriptSourceDirectory directory is ${maven.project.build.scriptSourceDirectory}</echo>
+		<echo>Maven build resourceDirectory directory is ${maven.project.build.resources}</echo>
+	</target>
+
+	<target name="clean" depends="init">
+		<delete dir="${maven.project.build.directory}" />
+	</target>
+
+	<target name="compile" depends="init">
+		<mkdir dir="${maven.project.build.outputDirectory}" />
+		<javac classpathref="classpath.build"
+				includeantruntime="false" deprecation="false"
+				srcdir="${maven.project.build.sourceDirectory}"
+				destdir="${maven.project.build.outputDirectory}">
+			<compilerarg line="-encoding utf-8"/>
+		</javac>
+		<mkdir dir="${maven.project.build.testOutputDirectory}" />
+		<javac classpathref="classpath.build"
+				classpath="${maven.project.build.outputDirectory}"
+				includeantruntime="false" deprecation="false"
+				srcdir="${maven.project.build.testSourceDirectory}"
+				destdir="${maven.project.build.testOutputDirectory}">
+			<compilerarg line="-encoding utf-8"/>
+		</javac>
+	</target>
+
+    <target name="resources" depends="init">
+    	<mkdir dir="${maven.project.build.outputDirectory}" />
+		<native2ascii src="${maven.project.basedir}/src/main/resources" encoding="utf-8"
+			dest="${maven.project.basedir}/src/main/resources" includes="**/*.src" ext=".properties" />
+        <copy todir="${maven.project.build.outputDirectory}">
+            <fileset dir="${maven.project.basedir}/src/main/resources" excludes="**/*.src"/>
+        </copy>
+    </target>
+ 	
+    <!-- target name="build" depends="compile, resources"-->
+    <target name="build" depends="compile">
+        <mkdir dir="${maven.project.build.directory}/${maven.project.build.finalName}" />
+        <copy todir="${maven.project.build.directory}/${maven.project.build.finalName}/WEB-INF/classes">
+            <fileset dir="${maven.project.build.outputDirectory}" />
+        </copy>
+		<copy todir="${maven.project.build.directory}/${maven.project.build.finalName}">
+	       	<fileset dir="${maven.project.basedir}/src/main/webapp" />
+		</copy>
+    </target>
+
+    <target name="package" depends="build">
+    	<delete file="${maven.project.build.directory}/${maven.project.build.finalName}.war" />
+		<war destfile="${maven.project.build.directory}/${maven.project.build.finalName}.war"
+				webxml="${maven.project.basedir}/src/main/webapp/WEB-INF/web.xml" >
+            <fileset dir="${maven.project.build.directory}/${maven.project.build.finalName}" excludes="**/web.xml" />
+        </war>
+    </target>
+
+	<!--
+    <target name="package" depends="compile, resources">
+    	<delete file="${maven.project.build.directory}/${maven.project.build.finalName}.jar" />
+    	<jar destfile="${maven.project.build.directory}/${maven.project.build.finalName}.jar"
+    		basedir="${maven.project.build.outputDirectory}" />
+    </target>
+    -->
+
+    <!-- ======================================================= -->
+    <!-- Maven.                                      			 -->
+    <!-- ======================================================= -->
+	<target name="maven" depends="init">
+		<mkdir dir="${maven.project.basedir}/src/main/webapp/WEB-INF/lib" />
+
+		<!-- 清理lib目录下所有依赖包. -->
+    	<delete>
+    		<fileset dir="${maven.project.basedir}/src/main/webapp/WEB-INF/lib" includes="**/*.jar" />
+    	</delete>
+
+		<!-- 打包项目. -->
+		<exec dir="${maven.project.basedir}" executable="cmd.exe" >  
+			<arg line="/c call mvn clean package -Dmaven.test.skip=true" />
+		</exec>
+
+		<!-- 拷贝所有依赖包至lib目录. -->
+		<copy todir="${maven.project.basedir}/src/main/webapp/WEB-INF/lib">
+	        <fileset dir="${maven.project.build.directory}/${maven.project.build.finalName}/WEB-INF/lib" />
+		</copy>
+	</target>
+
+    <!-- ======================================================= -->
+    <!-- Attack.                                                 -->
+    <!-- ======================================================= -->
+	<target name="attack" depends="build" />
+</project>

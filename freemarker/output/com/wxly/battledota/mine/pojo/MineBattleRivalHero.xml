@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wxly.battledota.mine.pojo.MineBattleRivalHero">
+	<resultMap type="MineBattleRivalHero" id="mineBattleRivalHero" extends="com.wxly.battledota.database.pojo.BasePlayerPojo.basePlayerPojo">
+		<result column="rivalPlayerId" property="rivalPlayerId"/>
+		<result column="stage" property="stage"/>
+		<result column="heroId" property="heroId"/>
+		<result column="equip1" property="equip1"/>
+		<result column="equip2" property="equip2"/>
+		<result column="equip3" property="equip3"/>
+		<result column="equip4" property="equip4"/>
+		<result column="equip5" property="equip5"/>
+		<result column="equip6" property="equip6"/>
+		<result column="equipGrade1" property="equipGrade1"/>
+		<result column="equipGrade2" property="equipGrade2"/>
+		<result column="equipGrade3" property="equipGrade3"/>
+		<result column="equipGrade4" property="equipGrade4"/>
+		<result column="equipGrade5" property="equipGrade5"/>
+		<result column="equipGrade6" property="equipGrade6"/>
+		<result column="skillGrade1" property="skillGrade1"/>
+		<result column="skillGrade2" property="skillGrade2"/>
+		<result column="skillGrade3" property="skillGrade3"/>
+		<result column="skillGrade4" property="skillGrade4"/>
+		<result column="growGrade" property="growGrade"/>
+		<result column="starGrade" property="starGrade"/>
+	</resultMap>
+
+	<sql id="tableName">
+		t_mine_battle_rival_hero
+	</sql>
+	<sql id="tableAlias">
+		MineBattleRivalHero
+	</sql>
+
+	<select id="find" resultMap="mineBattleRivalHero">
+		select * from 
+		<include refid="tableName"/> <include refid="tableAlias" />
+		<trim prefix="where">
+			<include refid="common.aliasPropertiesCondition"/>
+		</trim>
+	</select>
+	
+	<select id="findById" resultMap="mineBattleRivalHero">
+		select * from 
+		<include refid="tableName"/>
+		where id = #{id}
+	</select>
+	
+	<select id="list" resultMap="mineBattleRivalHero">
+		select * from
+		<include refid="tableName" /> <include refid="tableAlias" />
+		<trim prefix="where">
+			<include refid="common.aliasPropertiesCondition" />
+		</trim>
+		<include refid="common.sortCondition" />
+		<include refid="common.pageCondition" />
+	</select>
+
+	<insert id="add" parameterType="MineBattleRivalHero" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		insert into
+		<include refid="tableName" />
+		(
+			 id
+			,equip1
+			,equip2
+			,equip3
+			,equip4
+			,equip5
+			,equip6
+			,equipGrade1
+			,equipGrade2
+			,equipGrade3
+			,equipGrade4
+			,equipGrade5
+			,equipGrade6
+			,growGrade
+			,heroId
+			,playerId
+			,rivalPlayerId
+			,skillGrade1
+			,skillGrade2
+			,skillGrade3
+			,skillGrade4
+			,stage
+			,starGrade
+		)
+		values
+		(
+			 #{id}
+			,#{equip1}
+			,#{equip2}
+			,#{equip3}
+			,#{equip4}
+			,#{equip5}
+			,#{equip6}
+			,#{equipGrade1}
+			,#{equipGrade2}
+			,#{equipGrade3}
+			,#{equipGrade4}
+			,#{equipGrade5}
+			,#{equipGrade6}
+			,#{growGrade}
+			,#{heroId}
+			,#{playerId}
+			,#{rivalPlayerId}
+			,#{skillGrade1}
+			,#{skillGrade2}
+			,#{skillGrade3}
+			,#{skillGrade4}
+			,#{stage}
+			,#{starGrade}
+		)
+	</insert>
+	
+	<update id="update" parameterType="MineBattleRivalHero">
+		update <include refid="tableName" /> 
+		<trim prefix="set" suffixOverrides=",">
+			<if test="equip1 != null">equip1=#{equip1},</if>
+			<if test="equip2 != null">equip2=#{equip2},</if>
+			<if test="equip3 != null">equip3=#{equip3},</if>
+			<if test="equip4 != null">equip4=#{equip4},</if>
+			<if test="equip5 != null">equip5=#{equip5},</if>
+			<if test="equip6 != null">equip6=#{equip6},</if>
+			<if test="equipGrade1 != null">equipGrade1=#{equipGrade1},</if>
+			<if test="equipGrade2 != null">equipGrade2=#{equipGrade2},</if>
+			<if test="equipGrade3 != null">equipGrade3=#{equipGrade3},</if>
+			<if test="equipGrade4 != null">equipGrade4=#{equipGrade4},</if>
+			<if test="equipGrade5 != null">equipGrade5=#{equipGrade5},</if>
+			<if test="equipGrade6 != null">equipGrade6=#{equipGrade6},</if>
+			<if test="growGrade != null">growGrade=#{growGrade},</if>
+			<if test="heroId != null">heroId=#{heroId},</if>
+			<if test="playerId != null">playerId=#{playerId},</if>
+			<if test="rivalPlayerId != null">rivalPlayerId=#{rivalPlayerId},</if>
+			<if test="skillGrade1 != null">skillGrade1=#{skillGrade1},</if>
+			<if test="skillGrade2 != null">skillGrade2=#{skillGrade2},</if>
+			<if test="skillGrade3 != null">skillGrade3=#{skillGrade3},</if>
+			<if test="skillGrade4 != null">skillGrade4=#{skillGrade4},</if>
+			<if test="stage != null">stage=#{stage},</if>
+			<if test="starGrade != null">starGrade=#{starGrade},</if>
+		</trim>
+		where id=#{id}
+	</update>
+</mapper>

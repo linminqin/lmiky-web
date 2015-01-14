@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wxly.battledota.mine.pojo.MineFightList">
+	<resultMap type="MineFightList" id="mineFightList" extends="com.wxly.battledota.database.pojo.BasePlayerPojo.basePlayerPojo">
+		<result column="fightTime" property="fightTime"/>
+		<result column="stage" property="stage"/>
+		<result column="result" property="result"/>
+	</resultMap>
+
+	<sql id="tableName">
+		t_mine_fight_list
+	</sql>
+	<sql id="tableAlias">
+		MineFightList
+	</sql>
+
+	<select id="find" resultMap="mineFightList">
+		select * from 
+		<include refid="tableName"/> <include refid="tableAlias" />
+		<trim prefix="where">
+			<include refid="common.aliasPropertiesCondition"/>
+		</trim>
+	</select>
+	
+	<select id="findById" resultMap="mineFightList">
+		select * from 
+		<include refid="tableName"/>
+		where id = #{id}
+	</select>
+	
+	<select id="list" resultMap="mineFightList">
+		select * from
+		<include refid="tableName" /> <include refid="tableAlias" />
+		<trim prefix="where">
+			<include refid="common.aliasPropertiesCondition" />
+		</trim>
+		<include refid="common.sortCondition" />
+		<include refid="common.pageCondition" />
+	</select>
+
+	<insert id="add" parameterType="MineFightList" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		insert into
+		<include refid="tableName" />
+		(
+			 id
+			,fightTime
+			,playerId
+			,result
+			,stage
+		)
+		values
+		(
+			 #{id}
+			,#{fightTime}
+			,#{playerId}
+			,#{result}
+			,#{stage}
+		)
+	</insert>
+	
+	<update id="update" parameterType="MineFightList">
+		update <include refid="tableName" /> 
+		<trim prefix="set" suffixOverrides=",">
+			<if test="fightTime != null">fightTime=#{fightTime},</if>
+			<if test="playerId != null">playerId=#{playerId},</if>
+			<if test="result != null">result=#{result},</if>
+			<if test="stage != null">stage=#{stage},</if>
+		</trim>
+		where id=#{id}
+	</update>
+</mapper>

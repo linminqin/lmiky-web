@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wxly.battledota.mine.pojo.MinePurchaseBattlerList">
+	<resultMap type="MinePurchaseBattlerList" id="minePurchaseBattlerList" extends="com.wxly.battledota.database.pojo.BasePlayerPojo.basePlayerPojo">
+		<result column="purchaseTime" property="purchaseTime"/>
+		<result column="consumeDiamond" property="consumeDiamond"/>
+	</resultMap>
+
+	<sql id="tableName">
+		t_mine_purchase_battler_list
+	</sql>
+	<sql id="tableAlias">
+		MinePurchaseBattlerList
+	</sql>
+
+	<select id="find" resultMap="minePurchaseBattlerList">
+		select * from 
+		<include refid="tableName"/> <include refid="tableAlias" />
+		<trim prefix="where">
+			<include refid="common.aliasPropertiesCondition"/>
+		</trim>
+	</select>
+	
+	<select id="findById" resultMap="minePurchaseBattlerList">
+		select * from 
+		<include refid="tableName"/>
+		where id = #{id}
+	</select>
+	
+	<select id="list" resultMap="minePurchaseBattlerList">
+		select * from
+		<include refid="tableName" /> <include refid="tableAlias" />
+		<trim prefix="where">
+			<include refid="common.aliasPropertiesCondition" />
+		</trim>
+		<include refid="common.sortCondition" />
+		<include refid="common.pageCondition" />
+	</select>
+
+	<insert id="add" parameterType="MinePurchaseBattlerList" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		insert into
+		<include refid="tableName" />
+		(
+			 id
+			,consumeDiamond
+			,playerId
+			,purchaseTime
+		)
+		values
+		(
+			 #{id}
+			,#{consumeDiamond}
+			,#{playerId}
+			,#{purchaseTime}
+		)
+	</insert>
+	
+	<update id="update" parameterType="MinePurchaseBattlerList">
+		update <include refid="tableName" /> 
+		<trim prefix="set" suffixOverrides=",">
+			<if test="consumeDiamond != null">consumeDiamond=#{consumeDiamond},</if>
+			<if test="playerId != null">playerId=#{playerId},</if>
+			<if test="purchaseTime != null">purchaseTime=#{purchaseTime},</if>
+		</trim>
+		where id=#{id}
+	</update>
+</mapper>

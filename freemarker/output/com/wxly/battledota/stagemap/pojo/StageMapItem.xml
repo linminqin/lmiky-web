@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wxly.battledota.stagemap.pojo.StageMapItem">
+	<resultMap type="StageMapItem" id="stageMapItem" extends="com.wxly.jdp.database.pojo.BasePojo.basePojo">
+		<result column="stageMapId" property="stageMapId"/>
+		<result column="amount" property="amount"/>
+		<result column="probability" property="probability"/>
+		<result column="type" property="type"/>
+		<result column="minItemIdentifier" property="minItemIdentifier"/>
+		<result column="maxItemIdentifier" property="maxItemIdentifier"/>
+	</resultMap>
+
+	<sql id="tableName">
+		t_stage_map_item
+	</sql>
+	<sql id="tableAlias">
+		StageMapItem
+	</sql>
+
+	<select id="find" resultMap="stageMapItem">
+		select * from 
+		<include refid="tableName"/> <include refid="tableAlias" />
+		<trim prefix="where">
+			<include refid="common.aliasPropertiesCondition"/>
+		</trim>
+	</select>
+	
+	<select id="findById" resultMap="stageMapItem">
+		select * from 
+		<include refid="tableName"/>
+		where id = #{id}
+	</select>
+	
+	<select id="list" resultMap="stageMapItem">
+		select * from
+		<include refid="tableName" /> <include refid="tableAlias" />
+		<trim prefix="where">
+			<include refid="common.aliasPropertiesCondition" />
+		</trim>
+		<include refid="common.sortCondition" />
+		<include refid="common.pageCondition" />
+	</select>
+
+	<insert id="add" parameterType="StageMapItem" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		insert into
+		<include refid="tableName" />
+		(
+			 id
+			,amount
+			,maxItemIdentifier
+			,minItemIdentifier
+			,probability
+			,stageMapId
+			,type
+		)
+		values
+		(
+			 #{id}
+			,#{amount}
+			,#{maxItemIdentifier}
+			,#{minItemIdentifier}
+			,#{probability}
+			,#{stageMapId}
+			,#{type}
+		)
+	</insert>
+	
+	<update id="update" parameterType="StageMapItem">
+		update <include refid="tableName" /> 
+		<trim prefix="set" suffixOverrides=",">
+			<if test="amount != null">amount=#{amount},</if>
+			<if test="maxItemIdentifier != null">maxItemIdentifier=#{maxItemIdentifier},</if>
+			<if test="minItemIdentifier != null">minItemIdentifier=#{minItemIdentifier},</if>
+			<if test="probability != null">probability=#{probability},</if>
+			<if test="stageMapId != null">stageMapId=#{stageMapId},</if>
+			<if test="type != null">type=#{type},</if>
+		</trim>
+		where id=#{id}
+	</update>
+</mapper>

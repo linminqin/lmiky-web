@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wxly.battledota.hero.pojo.HeroGrowInfo">
+	<resultMap type="HeroGrowInfo" id="heroGrowInfo" extends="com.wxly.battledota.database.pojo.BaseIdentifierPojo.baseIdentifierPojo">
+		<result column="heroId" property="heroId"/>
+		<result column="star" property="star"/>
+		<result column="powerGrow" property="powerGrow"/>
+		<result column="agileGrow" property="agileGrow"/>
+		<result column="intelligenceGrow" property="intelligenceGrow"/>
+	</resultMap>
+
+	<sql id="tableName">
+		t_hero_grow_info
+	</sql>
+	<sql id="tableAlias">
+		HeroGrowInfo
+	</sql>
+
+	<select id="find" resultMap="heroGrowInfo">
+		select * from 
+		<include refid="tableName"/> <include refid="tableAlias" />
+		<trim prefix="where">
+			<include refid="common.aliasPropertiesCondition"/>
+		</trim>
+	</select>
+	
+	<select id="findById" resultMap="heroGrowInfo">
+		select * from 
+		<include refid="tableName"/>
+		where id = #{id}
+	</select>
+	
+	<select id="list" resultMap="heroGrowInfo">
+		select * from
+		<include refid="tableName" /> <include refid="tableAlias" />
+		<trim prefix="where">
+			<include refid="common.aliasPropertiesCondition" />
+		</trim>
+		<include refid="common.sortCondition" />
+		<include refid="common.pageCondition" />
+	</select>
+
+	<insert id="add" parameterType="HeroGrowInfo" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		insert into
+		<include refid="tableName" />
+		(
+			 id
+			,agileGrow
+			,heroId
+			,identifier
+			,intelligenceGrow
+			,powerGrow
+			,star
+		)
+		values
+		(
+			 #{id}
+			,#{agileGrow}
+			,#{heroId}
+			,#{identifier}
+			,#{intelligenceGrow}
+			,#{powerGrow}
+			,#{star}
+		)
+	</insert>
+	
+	<update id="update" parameterType="HeroGrowInfo">
+		update <include refid="tableName" /> 
+		<trim prefix="set" suffixOverrides=",">
+			<if test="agileGrow != null">agileGrow=#{agileGrow},</if>
+			<if test="heroId != null">heroId=#{heroId},</if>
+			<if test="identifier != null">identifier=#{identifier},</if>
+			<if test="intelligenceGrow != null">intelligenceGrow=#{intelligenceGrow},</if>
+			<if test="powerGrow != null">powerGrow=#{powerGrow},</if>
+			<if test="star != null">star=#{star},</if>
+		</trim>
+		where id=#{id}
+	</update>
+</mapper>
