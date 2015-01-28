@@ -1,4 +1,4 @@
-package com.lmiky.jdp.constants;
+package com.lmiky.jdp.web.constants;
 
 import com.lmiky.jdp.util.PropertiesUtils;
 

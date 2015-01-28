@@ -4,8 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.lmiky.jdp.constants.Constants;
 import com.lmiky.jdp.database.pojo.BasePojo;
+import com.lmiky.jdp.web.constants.Constants;
 import com.lmiky.jdp.web.page.model.Page;
 
 /**

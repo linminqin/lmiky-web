@@ -14,12 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import com.lmiky.jdp.constants.Constants;
 import com.lmiky.jdp.database.model.PropertyCompareType;
 import com.lmiky.jdp.database.model.PropertyFilter;
 import com.lmiky.jdp.database.pojo.BasePojo;
 import com.lmiky.jdp.logger.util.LoggerUtils;
 import com.lmiky.jdp.util.PropertyUtils;
+import com.lmiky.jdp.web.constants.Constants;
 
 /**
  * 过滤属性工具类
