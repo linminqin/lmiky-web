@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	
+	<!-- 表单锁 -->
+	<bean id="lockService" class="com.lmiky.jdp.lock.service.impl.LockServiceImpl">
+		<constructor-arg index="0" ref="cacheFactory" />
+		<constructor-arg index="1" value="formLockCache" />
+		<constructor-arg index="2" value="10" />
+	</bean>
+	
+	<!-- 单点登陆 -->
+	<bean id="ssoService" class="com.lmiky.jdp.sso.service.impl.SsoServiceImpl">
+		<constructor-arg index="0" ref="cacheFactory" />
+		<constructor-arg index="1" value="ssoCache" />
+		<property name="userService" ref="userService"/>
+	</bean>
+	
+	<!-- 菜单解析业务 -->
+	<bean id="menuParseService" class="com.lmiky.jdp.system.menu.service.impl.MenuParseServiceImpl" init-method="init">
+		<property name="menuConfigPath" value="config/menu.xml"/> <!-- 配置文件路径 -->
+		<property name="authorityService" ref="authorityService" />
+		<property name="cacheFactory" ref="cacheFactory"/>
+		<property name="cacheName" value="menuCache"/>
+	</bean>
+	
+</beans>
