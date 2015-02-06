@@ -5,7 +5,7 @@
 
 	<groupId>com.lmiky</groupId>
 	<artifactId>lmiky-web</artifactId>
-	<version>0.1-alpha</version>
+	<version>0.2</version>
 	<packaging>war</packaging>
 
 	<properties>
