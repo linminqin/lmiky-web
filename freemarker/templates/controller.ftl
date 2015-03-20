@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ${className}Controller extends FormController<${className}> {
 
 	/* (non-Javadoc)
-	 * @see com.wxly.jdp.form.controller.FormController#getAddAuthorityCode(org.springframework.ui.ModelMap, javax.servlet.http.HttpServletRequest)
+	 * @see com.lmiky.jdp.form.controller.FormController#getAddAuthorityCode(org.springframework.ui.ModelMap, javax.servlet.http.HttpServletRequest)
 	 */
 	@Override
 	protected String getAddAuthorityCode(ModelMap modelMap, HttpServletRequest request) {
@@ -26,7 +26,7 @@ public class ${className}Controller extends FormController<${className}> {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.wxly.jdp.form.controller.FormController#getModifyAuthorityCode(org.springframework.ui.ModelMap, javax.servlet.http.HttpServletRequest)
+	 * @see com.lmiky.jdp.form.controller.FormController#getModifyAuthorityCode(org.springframework.ui.ModelMap, javax.servlet.http.HttpServletRequest)
 	 */
 	@Override
 	protected String getModifyAuthorityCode(ModelMap modelMap, HttpServletRequest request) {
@@ -34,7 +34,7 @@ public class ${className}Controller extends FormController<${className}> {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.wxly.jdp.form.controller.FormController#getDeleteAuthorityCode(org.springframework.ui.ModelMap, javax.servlet.http.HttpServletRequest)
+	 * @see com.lmiky.jdp.form.controller.FormController#getDeleteAuthorityCode(org.springframework.ui.ModelMap, javax.servlet.http.HttpServletRequest)
 	 */
 	@Override
 	protected String getDeleteAuthorityCode(ModelMap modelMap, HttpServletRequest request) {
@@ -42,7 +42,7 @@ public class ${className}Controller extends FormController<${className}> {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.wxly.jdp.base.controller.BaseController#getLoadAuthorityCode(org.springframework.ui.ModelMap, javax.servlet.http.HttpServletRequest)
+	 * @see com.lmiky.jdp.base.controller.BaseController#getLoadAuthorityCode(org.springframework.ui.ModelMap, javax.servlet.http.HttpServletRequest)
 	 */
 	@Override
 	protected String getLoadAuthorityCode(ModelMap modelMap, HttpServletRequest request) {

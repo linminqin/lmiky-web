@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lmiky.jdp.user.pojo.User">
+	<resultMap type="User" id="user" extends="com.lmiky.jdp.user.pojo.Person.person">
+		<result column="loginName" property="loginName"/>
+		<result column="password" property="password"/>
+		<result column="lastSetPasswordTime" property="lastSetPasswordTime"/>
+		<result column="valid" property="valid"/>
+	</resultMap>
+	<sql id="tableName">
+		t_user
+	</sql>
+	<sql id="tableAlias">
+		User
+	</sql>
+	
+	<select id="find" resultMap="user">
+		select * from <include refid="tableName"/> <include refid="tableAlias"/>
+		<trim prefix="where">
+			<include refid="common.aliasPropertiesCondition"/>
+		</trim>
+	</select>
+	
+	<select id="findById" resultMap="user">
+		select * from 
+		<include refid="tableName"/> <include refid="tableAlias" />
+		where id = #{id}
+	</select>
+	
+	<insert id="add" parameterType="User"  useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+	 	insert into <include refid="tableName"/>(loginName, password, lastSetPasswordTime, valid, <include refid="com.lmiky.jdp.user.pojo.Person.addField"/>) 
+	 	values (#{loginName}, #{password}, #{lastSetPasswordTime}, #{valid}, <include refid="com.lmiky.jdp.user.pojo.Person.addValue"/>)
+	 </insert>
+	 
+	 <update id="update" parameterType="User">
+		update <include refid="tableName" /> 
+		<trim prefix="set" suffixOverrides=",">
+			<include refid="com.lmiky.jdp.user.pojo.Person.updateValue"/>
+			<if test="loginName != null">loginName=#{loginName},</if>
+			<if test="password != null">password=#{password},</if>
+			<if test="lastSetPasswordTime != null">lastSetPasswordTime=#{lastSetPasswordTime},</if>
+			<if test="valid != null">valid=#{valid},</if>
+		</trim>
+		where id=#{id}
+	</update>
+	
+	<delete id="deleteUserRole">
+		delete from t_user_role where userId = #{userId}
+	</delete>
+	
+	<insert id="addUserRole">
+		insert into t_user_role(userId, roleId) values(#{userId}, #{roleId})
+	</insert>
+</mapper>

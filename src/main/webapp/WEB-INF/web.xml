@@ -44,7 +44,7 @@
 	</listener>
 	<servlet>
 		<servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
-		<servlet-class>com.wxly.jdp.base.servlet.DispatcherServlet</servlet-class>
+		<servlet-class>com.lmiky.jdp.base.servlet.WebDispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value> classpath:config/springMVC.xml</param-value>

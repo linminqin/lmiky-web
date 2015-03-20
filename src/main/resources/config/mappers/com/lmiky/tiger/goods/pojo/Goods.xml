@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lmiky.tiger.goods.pojo.Goods">
+	<resultMap type="Goods" id="goods" extends="com.lmiky.jdp.database.pojo.BasePojo.basePojo">
+		<result column="title" property="title"/>
+		<result column="logo" property="logo"/>
+		<result column="images" property="images"/>
+		<result column="salePrice" property="salePrice"/>
+		<result column="marketPrice" property="marketPrice"/>
+		<result column="couponDiscount" property="couponDiscount"/>
+		<result column="content" property="content"/>
+		<result column="audit" property="audit"/>
+		<result column="createTime" property="createTime"/>
+		<result column="updateTime" property="updateTime"/>
+	</resultMap>
+
+	<sql id="tableName">
+		t_goods
+	</sql>
+	<sql id="tableAlias">
+		Goods
+	</sql>
+
+	<select id="find" resultMap="goods">
+		select * from 
+		<include refid="tableName"/> <include refid="tableAlias" />
+		<trim prefix="where">
+			<include refid="common.aliasPropertiesCondition"/>
+		</trim>
+	</select>
+	
+	<select id="list" resultMap="goods">
+		select * from
+		<include refid="tableName" /> <include refid="tableAlias" />
+		<trim prefix="where">
+			<include refid="common.aliasPropertiesCondition" />
+		</trim>
+		<include refid="common.sortCondition" />
+		<include refid="common.pageCondition" />
+	</select>
+
+	<insert id="add" parameterType="Goods" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		insert into
+		<include refid="tableName" />
+		(
+			 id
+			,title
+			,logo
+			,images
+			,salePrice
+			,marketPrice
+			,couponDiscount
+			,content
+			,audit
+			,createTime
+			,updateTime
+		)
+		values
+		(
+			 #{id}
+			,#{title}
+			,#{logo}
+			,#{images}
+			,#{salePrice}
+			,#{marketPrice}
+			,#{couponDiscount}
+			,#{content}
+			,#{audit}
+			,#{createTime}
+			,#{updateTime}
+		)
+	</insert>
+	
+	<update id="update" parameterType="Goods">
+		update <include refid="tableName" /> 
+		<trim prefix="set" suffixOverrides=",">
+			<if test="title != null">title=#{title},</if>
+			<if test="logo != null">logo=#{logo},</if>
+			<if test="images != null">images=#{images},</if>
+			<if test="salePrice != null">salePrice=#{salePrice},</if>
+			<if test="marketPrice != null">marketPrice=#{marketPrice},</if>
+			<if test="couponDiscount != null">couponDiscount=#{couponDiscount},</if>
+			<if test="content != null">content=#{content},</if>
+			<if test="audit != null">audit=#{audit},</if>
+			<if test="createTime != null">createTime=#{createTime},</if>
+			<if test="updateTime != null">updateTime=#{updateTime},</if>
+		</trim>
+		where id=#{id}
+	</update>
+</mapper>

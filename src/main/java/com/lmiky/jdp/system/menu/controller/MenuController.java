@@ -24,6 +24,7 @@ import com.lmiky.jdp.system.menu.service.MenuService;
 import com.lmiky.jdp.system.menu.util.MenuUtils;
 import com.lmiky.jdp.util.PropertiesUtils;
 import com.lmiky.jdp.util.ResponseUtils;
+import com.lmiky.jdp.web.constants.Constants;
 
 /**
  * 菜单
@@ -43,9 +44,9 @@ public class MenuController extends BaseController {
 	public static final String MENU_LABEL_LEFTMENU_PREFIX = "system.menu.label.leftMenu.";
 	public static final String LEFTMENU_ID_LATELYOPE = "latelyOpe";
 	public static final String LEFTMENU_ID_MYFAVORITE = "myFavorite";
-	public static final String MENU_LABEL_LEFTMENU_LATELYOPE = PropertiesUtils.getStringContextValue(MENU_LABEL_LEFTMENU_PREFIX
+	public static final String MENU_LABEL_LEFTMENU_LATELYOPE = PropertiesUtils.getStringValue(Constants.PROPERTIES_KEY_WEB_FILE, MENU_LABEL_LEFTMENU_PREFIX
 			+ LEFTMENU_ID_LATELYOPE);
-	public static final String MENU_LABEL_LEFTMENU_MYFAVORITE = PropertiesUtils.getStringContextValue(MENU_LABEL_LEFTMENU_PREFIX
+	public static final String MENU_LABEL_LEFTMENU_MYFAVORITE = PropertiesUtils.getStringValue(Constants.PROPERTIES_KEY_WEB_FILE, MENU_LABEL_LEFTMENU_PREFIX
 			+ LEFTMENU_ID_MYFAVORITE);
 	
 	private MenuService menuService;

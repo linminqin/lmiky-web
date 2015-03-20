@@ -35,7 +35,7 @@ public class Page<T> implements Serializable {
 	private String action;			//分页动作
 	
 	public Page() {
-		setPageSize(PropertiesUtils.getIntContextValue(Constants.CONTEXT_KEY_PAGE_PAGESIZE));
+		setPageSize(PropertiesUtils.getIntValue(Constants.PROPERTIES_KEY_WEB_FILE, Constants.CONTEXT_KEY_PAGE_PAGESIZE));
 		setCurrentPage(1);
 		setAction(PAGE_ACTION_TURN);
 	}

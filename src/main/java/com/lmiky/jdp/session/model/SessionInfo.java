@@ -28,13 +28,13 @@ public class SessionInfo implements Serializable {
 	private Map<String, Boolean> authoritys = new HashMap<String, Boolean>();
 	private Map<String, Boolean> menuFavoriteInfo = new HashMap<String, Boolean>();
 	private String latelyOperateMenuId; // 最后操作的菜单ID
-	private String systemUrlParamHistory = PropertiesUtils.getStringContextValue("system.url.param.history").toLowerCase();
-	private String systemUrlParamNoHistory = PropertiesUtils.getStringContextValue("system.url.param.history.noRemember").toLowerCase();
+	private String systemUrlParamHistory = PropertiesUtils.getStringValue(Constants.PROPERTIES_KEY_WEB_FILE, "system.url.param.history").toLowerCase();
+	private String systemUrlParamNoHistory = PropertiesUtils.getStringValue(Constants.PROPERTIES_KEY_WEB_FILE, "system.url.param.history.noRemember").toLowerCase();
 	private int systenUriPatternLength = Constants.SYSTEM_URI_PATTERN.length();
 	//访问页面历史记录，提供“退后”按钮使用
 	@SuppressWarnings("rawtypes")
 	private Map<String, Map> urlParamHistorys = new LinkedHashMap<String, Map>();
-	private int urlParamHistoryNum = PropertiesUtils.getIntContextValue("system.url.param.history.num");
+	private int urlParamHistoryNum = PropertiesUtils.getIntValue(Constants.PROPERTIES_KEY_WEB_FILE, "system.url.param.history.num");
 	//拥有权限的顶层菜单列表
 	private List<TopMenu> topMenus;
 	//最近操作菜单

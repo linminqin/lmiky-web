@@ -56,8 +56,8 @@ public abstract class BaseController {
 	protected SsoService ssoService;
 	protected AuthorityService authorityService;
 	protected MenuService menuService;
-	private String viewType = PropertiesUtils.getStringContextValue("system.viewType");
-	protected String loginUrl = PropertiesUtils.getStringContextValue("system.loginUrl");
+	private String viewType = PropertiesUtils.getStringValue(Constants.PROPERTIES_KEY_WEB_FILE, "system.viewType");
+	protected String loginUrl = PropertiesUtils.getStringValue(Constants.PROPERTIES_KEY_WEB_FILE, "system.loginUrl");
 	
 	/**
 	 * 获取加载权限值，如果返回值为空，表示不需要检查权限
@@ -286,7 +286,7 @@ public abstract class BaseController {
 	 */
 	public String getUnRedirectRequestTypeExceptionReturn(Exception e, ModelMap modelMap, HttpServletRequest request, HttpServletResponse response, String requestTyp) {
 		modelMap.put(BaseCodeView.KEY_NAME_CODE, BaseCode.CODE_ERROR);
-		return "baseInfoCodeJsonView";
+		return "baseCodeView";
 	}
 	
 	/**

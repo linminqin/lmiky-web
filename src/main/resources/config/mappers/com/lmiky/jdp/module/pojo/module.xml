@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lmiky.jdp.module.pojo.Module">
+	<resultMap type="Module" id="module" extends="com.lmiky.jdp.database.pojo.BasePojo.basePojo">
+		<result column="name" property="name"/>
+		<result column="path" property="path"/>
+		<association property="group" column="groupId" select="com.lmiky.jdp.module.pojo.ModuleGroup.findById"/>
+		 <!-- 
+		 <association property="group" column="groupId" resultMap="com.lmiky.jdp.module.pojo.ModuleGroup.moduleGroup"/>
+		 -->
+	</resultMap>
+	<sql id="tableName">
+		t_module
+	</sql>
+	<sql id="tableAlias">
+		Module
+	</sql>
+	<sql id="joinModuleGroup">
+		<if test="hasJoin and joinTableAlias.contains('ModuleGroup')">
+     		join <include refid="com.lmiky.jdp.module.pojo.ModuleGroup.tableName"/> ModuleGroup on ModuleGroup.id = <include refid="tableAlias" />.groupId
+     	</if>
+	</sql>
+	
+	<select id="findById" resultMap="module">
+		select * from 
+		<include refid="tableName"/>	
+		where id = #{id}
+	</select>
+	
+	<select id="listByGroup" resultMap="module">
+		select * from 
+		<include refid="tableName"/>	
+		where groupId = #{groupId}
+	</select>
+	
+	<select id="find" resultMap="module">
+		select * from 
+		<include refid="tableName"/> <include refid="tableAlias" />
+		<trim prefix="where">
+			<include refid="common.aliasPropertiesCondition"/>
+		</trim>
+	</select>
+	
+	 <!-- 
+	 <select id="find" resultMap="module">
+		select m.*, g.id modulegroupId, g.name modulegroup_name, g.path modulegroup_path from 
+		<include refid="tableName"/> m  join <include refid="com.lmiky.jdp.module.pojo.ModuleGroup.tableName"/> g on m.groupId = g.id
+		where m.id = #{id}
+	</select>
+	 -->
+	 
+	 <insert id="add" parameterType="Module" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+	 	insert into <include refid="tableName"/>(name, path, groupId) values(#{name}, #{path}, #{group.id})
+	 </insert>
+	 
+	 <update id="update" parameterType="Module" >
+	 	update <include refid="tableName"/>
+	 	<set>
+		 	<if test="name != null and name != ''">
+		 		name = #{name},
+		 	</if>
+		 	<if test="path != null and path != ''">
+		 		path = #{path},
+		 	</if>
+		 	<if test="group != null and group.id != null">
+		 		groupId = #{group.id}
+		 	</if>
+	 	</set>
+	 	where id = #{id}
+	 </update>
+	 
+	 <select id="list" resultMap="module">
+		select <include refid="tableAlias" />.* from 
+		<include refid="tableName"/> <include refid="tableAlias" />
+		<include refid="joinModuleGroup" />
+		<trim prefix="where">
+			<include refid="common.aliasPropertiesCondition"/>
+		</trim>
+		<include refid="common.sortCondition"/>
+		<include refid="common.pageCondition"/>
+	</select>
+</mapper>

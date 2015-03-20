@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lmiky.area.pojo.City">
+	<resultMap type="City" id="city" extends="com.lmiky.area.pojo.BaseAreaPojo.baseAreaPojo">
+		<association property="province" column="province" select="com.lmiky.area.pojo.Province.findById"/>
+	</resultMap>
+
+	<sql id="tableName">
+		t_city
+	</sql>
+	<sql id="tableAlias">
+		City
+	</sql>
+
+	<select id="find" resultMap="city">
+		select * from 
+		<include refid="tableName"/> <include refid="tableAlias" />
+		<trim prefix="where">
+			<include refid="common.aliasPropertiesCondition"/>
+		</trim>
+	</select>
+	
+	<select id="findById" resultMap="city">
+		select * from 
+		<include refid="tableName"/>
+		where id = #{id}
+	</select>
+	
+	<select id="listByProvince" resultMap="city">
+		select * from 
+		<include refid="tableName"/>	
+		where province = #{provinceId}
+	</select>
+	
+	<select id="list" resultMap="city">
+		select * from
+		<include refid="tableName" /> <include refid="tableAlias" />
+		<include refid="com.lmiky.area.pojo.BaseAreaPojo.join" />
+		<trim prefix="where">
+			<include refid="common.aliasPropertiesCondition" />
+		</trim>
+		<include refid="common.sortCondition" />
+		<include refid="common.pageCondition" />
+	</select>
+
+	<insert id="add" parameterType="City" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		insert into
+		<include refid="tableName" />
+		(
+			 id
+			,name
+			,phoneticAlphabet 
+			,province
+		)
+		values
+		(
+			 #{id}
+			,#{name}
+			,#{phoneticAlphabet} 
+			,#{province.id}
+		)
+	</insert>
+	
+	<update id="update" parameterType="City">
+		update <include refid="tableName" /> 
+		<trim prefix="set" suffixOverrides=",">
+			<include refid="com.lmiky.area.pojo.BaseAreaPojo.updateFields" />
+			<if test="province != null and province.id != null">province=#{province.id},</if>
+		</trim>
+		where id=#{id}
+	</update>
+</mapper>

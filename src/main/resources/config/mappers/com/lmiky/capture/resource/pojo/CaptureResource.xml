@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lmiky.capture.resource.pojo.CaptureResource">
+	<resultMap type="CaptureResource" id="captureResource" extends="com.lmiky.jdp.database.pojo.BasePojo.basePojo">
+		<result column="title" property="title"/>
+		<result column="subtitle" property="subtitle"/>
+		<result column="author" property="author"/>
+		<result column="pubTime" property="pubTime"/>
+		<association column="contentId" property="content" select="com.lmiky.capture.resource.pojo.CaptureResourceContent.findById"/>
+	</resultMap>
+
+	<sql id="tableName">
+		t_capture_resource
+	</sql>
+	<sql id="tableAlias">
+		CaptureResource
+	</sql>
+
+	<select id="findById" resultMap="captureResource">
+		select * from 
+		<include refid="tableName"/> <include refid="tableAlias" />
+		where id = #{id}
+	</select>
+
+	<select id="find" resultMap="captureResource">
+		select * from 
+		<include refid="tableName"/> <include refid="tableAlias" />
+		<trim prefix="where">
+			<include refid="common.aliasPropertiesCondition"/>
+		</trim>
+	</select>
+	
+	<select id="list" resultMap="captureResource">
+		select * from
+		<include refid="tableName" /> <include refid="tableAlias" />
+		<trim prefix="where">
+			<include refid="common.aliasPropertiesCondition" />
+		</trim>
+		<include refid="common.sortCondition" />
+		<include refid="common.pageCondition" />
+	</select>
+
+	<insert id="add" parameterType="CaptureResource" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		insert into
+		<include refid="tableName" />
+		(
+			 id
+			,title
+			,subtitle
+			,author
+			,pubTime
+			,contentId
+		)
+		values
+		(
+			 #{id}
+			,#{title}
+			,#{subtitle}
+			,#{author}
+			,#{pubTime}
+			,#{content.id}
+		)
+	</insert>
+	
+	<update id="update" parameterType="CaptureResource">
+		update <include refid="tableName" /> 
+		<trim prefix="set" suffixOverrides=",">
+			<if test="title != null">title=#{title},</if>
+			<if test="subtitle != null">subtitle=#{subtitle},</if>
+			<if test="author != null">author=#{author},</if>
+			<if test="pubTime != null">pubTime=#{pubTime},</if>
+			<if test="content != null and content.id != null">contentId=#{content.id},</if>
+		</trim>
+		where id=#{id}
+	</update>
+</mapper>

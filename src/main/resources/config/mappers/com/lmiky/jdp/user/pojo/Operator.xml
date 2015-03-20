@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lmiky.jdp.user.pojo.Operator">
+	<resultMap type="Operator" id="operator" extends="com.lmiky.jdp.user.pojo.User.user">
+		<collection property="roles"  column="id" select="com.lmiky.jdp.user.pojo.Role.listByOperate"></collection>
+	</resultMap>
+	<sql id="tableName">
+		t_operator
+	</sql>
+	<sql id="tableAlias">
+		Operator
+	</sql>
+	<sql id="joinRole">
+		<if test="hasJoin and joinTableAlias.contains('Role')">
+     		join t_user_role ur on Operator.id = ur.userId join <include refid="com.lmiky.jdp.user.pojo.Role.tableName"/> Role on Role.id = ur.roleId
+     	</if>
+	</sql>
+	
+	<sql id="buildCascadeTable"><!-- 构建级联表 -->
+		select u.* from <include refid="com.lmiky.jdp.user.pojo.User.tableName"/> u inner join <include refid="tableName"/> o on u.id = o.id
+	</sql>
+	
+	<select id="find" resultMap="operator">
+		select * from (<include refid="buildCascadeTable"/>) <include refid="tableAlias"/>
+		<trim prefix="where">
+			<include refid="common.aliasPropertiesCondition"/>
+		</trim>
+	</select>
+	
+	 <insert id="add" parameterType="Operator" keyColumn="id" keyProperty="id">
+	 	insert into <include refid="tableName"/>(id) values(#{id})
+	 </insert>
+	 
+	 <select id="list" resultMap="operator">
+		select <include refid="tableAlias"/>.* from (<include refid="buildCascadeTable"/>) <include refid="tableAlias"/>
+		<include refid="joinRole"/>
+		<trim prefix="where">
+			<include refid="common.aliasPropertiesCondition"/>
+		</trim>
+		<include refid="common.sortCondition"/>
+		<include refid="common.pageCondition"/>
+	</select>
+	
+	<select id="count" resultType="java.lang.Integer">
+     	select count(*) from (<include refid="buildCascadeTable"/>) Operator
+     	<include refid="joinRole"/>
+     	<trim prefix="where">
+    		<include refid="common.aliasPropertiesCondition"/>
+    	</trim>
+     </select>
+     
+     <!-- 获取指定角色所为拥有的操作员 -->
+	<select id="listNoRoleUser" resultMap="operator">
+		select * from <include refid="tableName"/> o
+		where not exists (select 1 from t_user_role ur where ur.roleId = #{roleId} and ur.userId = o.id) order by o.name asc
+	</select>
+</mapper>

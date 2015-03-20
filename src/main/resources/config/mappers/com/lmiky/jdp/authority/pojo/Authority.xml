@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lmiky.jdp.authority.pojo.Authority">
+	<resultMap type="Authority" id="authority" extends="com.lmiky.jdp.database.pojo.BasePojo.basePojo">
+		<result column="operator" property="operator" />
+		<result column="modulePath" property="modulePath" />
+		<result column="authorityCode" property="authorityCode" />
+	</resultMap>
+	<sql id="tableName">
+		t_authority
+	</sql>
+	<sql id="tableAlias">
+		Authority
+	</sql>
+	
+	<select id="find" resultMap="authority">
+		select * from <include refid="tableName"/> <include refid="tableAlias"/>
+		<trim prefix="where">
+			<include refid="common.aliasPropertiesCondition"/>
+		</trim>
+	</select>
+	
+	 <insert id="add" parameterType="Authority" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		insert into
+		<include refid="tableName" />
+		(id, operator, modulePath, authorityCode) values(#{id}, #{operator}, #{modulePath}, #{authorityCode})
+	</insert>
+	 
+	 <select id="list" resultMap="authority">
+		select * from <include refid="tableName"/> <include refid="tableAlias"/>
+		<trim prefix="where">
+			<include refid="common.aliasPropertiesCondition"/>
+		</trim>
+		<include refid="common.sortCondition"/>
+		<include refid="common.pageCondition"/>
+	</select>
+	
+	<!-- 获取已授权操作员 -->
+	<select id="listAuthorizedOperator" resultMap="com.lmiky.jdp.user.pojo.Role.role">
+		select distinct Role.* from <include refid="com.lmiky.jdp.user.pojo.Role.tableName"/> Role 
+			where 
+		exists (select 1 from <include refid="tableName"/> Authority where Authority.modulePath = #{modulePath} and Authority.operator = Role.id)
+	</select>
+	
+	<!-- 获取未授权操作员 -->
+	<select id="listUnauthorizedOperator" resultMap="com.lmiky.jdp.user.pojo.Role.role">
+		select distinct Role.* from <include refid="com.lmiky.jdp.user.pojo.Role.tableName"/> Role 
+			where 
+		not exists (select 1 from <include refid="tableName"/> Authority where Authority.modulePath = #{modulePath} and Authority.operator = Role.id)
+	</select>
+	
+	<!-- 检查是否拥有权限 -->
+	<select id="checkAuthority" resultType="java.lang.Integer">
+		select count(*) from <include refid="com.lmiky.jdp.user.pojo.Operator.tableName"/> Operator, <include refid="tableName"/>  Authority, <include refid="com.lmiky.jdp.user.pojo.Role.tableName"/> Role 
+			where 
+		Operator.id = #{userId} and Role.id = Authority.operator and Authority.authorityCode = #{authorityCode}
+	</select>
+</mapper>

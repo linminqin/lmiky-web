@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lmiky.area.pojo.Country">
+	<resultMap type="Country" id="country" extends="com.lmiky.area.pojo.BaseAreaPojo.baseAreaPojo">
+		<collection property="provinces" column="id" select="com.lmiky.area.pojo.Province.listByCountry"/>
+	</resultMap>
+
+	<sql id="tableName">
+		t_country
+	</sql>
+	<sql id="tableAlias">
+		Country
+	</sql>
+
+	<select id="findById" resultMap="country">
+		select * from 
+		<include refid="tableName"/>
+		where id = #{id}
+	</select>
+	
+	<select id="find" resultMap="country">
+		select * from 
+		<include refid="tableName"/> <include refid="tableAlias" />
+		<trim prefix="where">
+			<include refid="common.aliasPropertiesCondition"/>
+		</trim>
+	</select>
+	
+	<select id="list" resultMap="country">
+		select * from
+		<include refid="tableName" /> <include refid="tableAlias" />
+		<trim prefix="where">
+			<include refid="common.aliasPropertiesCondition" />
+		</trim>
+		<include refid="common.sortCondition" />
+		<include refid="common.pageCondition" />
+	</select>
+
+	<insert id="add" parameterType="Country" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		insert into
+		<include refid="tableName" />
+		(
+			 id
+			,name
+			,phoneticAlphabet
+		)
+		values
+		(
+			 #{id}
+			,#{name}
+			,#{phoneticAlphabet}
+		)
+	</insert>
+	
+	<update id="update" parameterType="Country">
+		update <include refid="tableName" /> 
+		<trim prefix="set" suffixOverrides=",">
+			<include refid="com.lmiky.area.pojo.BaseAreaPojo.updateFields" />
+		</trim>
+		where id=#{id}
+	</update>
+</mapper>

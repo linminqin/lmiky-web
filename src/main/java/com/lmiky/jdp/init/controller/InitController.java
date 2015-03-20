@@ -13,6 +13,7 @@ import com.lmiky.jdp.controller.BaseController;
 import com.lmiky.jdp.init.service.InitService;
 import com.lmiky.jdp.util.PropertiesUtils;
 import com.lmiky.jdp.util.ResponseUtils;
+import com.lmiky.jdp.web.constants.Constants;
 
 /**
  * 初始化控制器
@@ -23,7 +24,7 @@ import com.lmiky.jdp.util.ResponseUtils;
 @RequestMapping("/init")
 public class InitController extends BaseController {
 	private InitService initService;
-	private Boolean allowInit = PropertiesUtils.getBooleanContextValue("system.allowInit");
+	private Boolean allowInit = PropertiesUtils.getBooleanValue(Constants.PROPERTIES_KEY_WEB_FILE, "system.allowInit");
 	
 	/**
 	 * 加载

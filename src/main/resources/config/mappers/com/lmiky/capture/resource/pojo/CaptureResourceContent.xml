@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lmiky.capture.resource.pojo.CaptureResourceContent">
+	<resultMap type="CaptureResourceContent" id="captureResourceContent" extends="com.lmiky.jdp.database.pojo.BasePojo.basePojo">
+		<result column="content" property="content"/>
+	</resultMap>
+
+	<sql id="tableName">
+		t_capture_resource_content
+	</sql>
+	<sql id="tableAlias">
+		CaptureResourceContent
+	</sql>
+
+	<select id="find" resultMap="captureResourceContent">
+		select * from 
+		<include refid="tableName"/> <include refid="tableAlias" />
+		<trim prefix="where">
+			<include refid="common.aliasPropertiesCondition"/>
+		</trim>
+	</select>
+	
+	<select id="findById" resultMap="captureResourceContent">
+		select * from 
+		<include refid="tableName"/> <include refid="tableAlias" />
+		where id = #{id}
+	</select>
+	
+	<select id="list" resultMap="captureResourceContent">
+		select * from
+		<include refid="tableName" /> <include refid="tableAlias" />
+		<trim prefix="where">
+			<include refid="common.aliasPropertiesCondition" />
+		</trim>
+		<include refid="common.sortCondition" />
+		<include refid="common.pageCondition" />
+	</select>
+
+	<insert id="add" parameterType="CaptureResourceContent" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		insert into
+		<include refid="tableName" />
+		(
+			 id
+			,content
+		)
+		values
+		(
+			 #{id}
+			,#{content}
+		)
+	</insert>
+	
+	<update id="update" parameterType="CaptureResourceContent">
+		update <include refid="tableName" /> 
+		<trim prefix="set" suffixOverrides=",">
+			<if test="content != null">content=#{content},</if>
+		</trim>
+		where id=#{id}
+	</update>
+</mapper>

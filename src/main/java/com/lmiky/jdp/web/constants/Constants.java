@@ -10,8 +10,10 @@ import com.lmiky.jdp.util.PropertiesUtils;
 public class Constants extends com.lmiky.jdp.constants.Constants {
 
 	// ****************************************properties文件****************************************//
+	// 配置文件
+	public static final String PROPERTIES_KEY_WEB_FILE = "config/web";	//WEB配置
 	
-	public static final String SYSTEM_URI_PATTERN = PropertiesUtils.getStringContextValue("system.url.pattern").toLowerCase();
+	public static final String SYSTEM_URI_PATTERN = PropertiesUtils.getStringValue(Constants.PROPERTIES_KEY_WEB_FILE, "system.url.pattern").toLowerCase();
 	
 	// ****************************************properties文件****************************************//
 	

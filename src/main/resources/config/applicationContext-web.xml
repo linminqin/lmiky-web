@@ -29,4 +29,9 @@
 		<property name="cacheName" value="menuCache"/>
 	</bean>
 	
+	<!-- 初始化模块配置 -->
+	<bean id="moduleParser" class="com.lmiky.jdp.init.parser.dom4j.ModuleParserImpl">
+		<property name="moduleConfigPath" value="config/module.xml"/> <!-- 配置文件路径 -->
+	</bean>
+	
 </beans>

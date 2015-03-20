@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lmiky.area.pojo.Province">
+	<resultMap type="Province" id="province" extends="com.lmiky.area.pojo.BaseAreaPojo.baseAreaPojo">
+		<association property="country" column="country" select="com.lmiky.area.pojo.Country.findById"/>
+		<collection property="cities" column="id" select="com.lmiky.area.pojo.City.listByProvince"/>
+	</resultMap>
+
+	<sql id="tableName">
+		t_province
+	</sql>
+	<sql id="tableAlias">
+		Province
+	</sql>
+
+	<select id="find" resultMap="province">
+		select * from 
+		<include refid="tableName"/> <include refid="tableAlias" />
+		<trim prefix="where">
+			<include refid="common.aliasPropertiesCondition"/>
+		</trim>
+	</select>
+	
+	<select id="findById" resultMap="province">
+		select * from 
+		<include refid="tableName"/>
+		where id = #{id}
+	</select>
+	
+	<select id="listByCountry" resultMap="province">
+		select * from 
+		<include refid="tableName"/>	
+		where country = #{countryId}
+	</select>
+	
+	<select id="list" resultMap="province">
+		select * from
+		<include refid="tableName" /> <include refid="tableAlias" />
+		<include refid="com.lmiky.area.pojo.BaseAreaPojo.join" />
+		<trim prefix="where">
+			<include refid="common.aliasPropertiesCondition" />
+		</trim>
+		<include refid="common.sortCondition" />
+		<include refid="common.pageCondition" />
+	</select>
+
+	<insert id="add" parameterType="Province" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		insert into
+		<include refid="tableName" />
+		(
+			 id
+			,name
+			,phoneticAlphabet
+			,country
+		)
+		values
+		(
+			 #{id}
+			,#{name}
+			,#{phoneticAlphabet}
+			,#{country.id}
+		)
+	</insert>
+	
+	<update id="update" parameterType="Province">
+		update <include refid="tableName" /> 
+		<trim prefix="set" suffixOverrides=",">
+			<include refid="com.lmiky.area.pojo.BaseAreaPojo.updateFields" />
+			<if test="country != null and country.id != null">country=#{country.id},</if>
+		</trim>
+		where id=#{id}
+	</update>
+</mapper>

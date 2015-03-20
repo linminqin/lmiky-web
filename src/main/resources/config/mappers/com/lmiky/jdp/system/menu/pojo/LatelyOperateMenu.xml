@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lmiky.jdp.system.menu.pojo.LatelyOperateMenu">
+	<resultMap type="LatelyOperateMenu" id="latelyOperateMenu"
+		extends="com.lmiky.jdp.database.pojo.BasePojo.basePojo">
+		<result column="userId" property="userId" />
+		<result column="opeTime" property="opeTime" />
+		<result column="menuId" property="menuId" />
+	</resultMap>
+
+	<sql id="tableName">
+		t_lately_operate_menu
+	</sql>
+	<sql id="tableAlias">
+		LatelyOperateMenu
+	</sql>
+
+	<select id="find" resultMap="latelyOperateMenu">
+		select * from 
+		<include refid="tableName"/> <include refid="tableAlias" />
+		<trim prefix="where">
+			<include refid="common.aliasPropertiesCondition"/>
+		</trim>
+	</select>
+
+	<insert id="add" parameterType="LatelyOperateMenu" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		insert into
+		<include refid="tableName" />
+		(id, userId, opeTime, menuId) values(#{id}, #{userId}, #{opeTime}, #{menuId})
+	</insert>
+
+	<select id="list" resultMap="latelyOperateMenu">
+		select * from
+		<include refid="tableName" /> <include refid="tableAlias" />
+		<trim prefix="where">
+			<include refid="common.aliasPropertiesCondition" />
+		</trim>
+		<include refid="common.sortCondition" />
+		<include refid="common.pageCondition" />
+	</select>
+	
+	<!-- 获取收藏夹菜单ID -->
+	<select id="listLatelyOperateMenuId" resultType="java.lang.String" >
+		select distinct menuId from <include refid="tableName" />  <include refid="tableAlias" /> where userId = #{userId} <include refid="common.sortCondition"/> <include refid="common.pageCondition"/>
+	</select>
+</mapper>

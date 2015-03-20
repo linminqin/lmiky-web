@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lmiky.capture.task.pojo.CaptureTask">
+	<resultMap type="CaptureTask" id="captureTask" extends="com.lmiky.jdp.database.pojo.BasePojo.basePojo">
+		<result column="name" property="name"/>
+		<result column="createTime" property="createTime"/>
+		<result column="startTime" property="startTime"/>
+		<result column="executeInterval" property="executeInterval"/>
+		<result column="lastExecuteTime" property="lastExecuteTime"/>
+		<result column="captureUrl" property="captureUrl"/>
+		<result column="state" property="state"/>
+		<result column="pagination" property="pagination"/>
+		<result column="titleStartPoint" property="titleStartPoint"/>
+		<result column="titleEndPoint" property="titleEndPoint"/>
+		<result column="subtitleStartPoint" property="subtitleStartPoint"/>
+		<result column="subtitleEndPoint" property="subtitleEndPoint"/>
+		<result column="authorStartPoint" property="authorStartPoint"/>
+		<result column="authorEndPoint" property="authorEndPoint"/>
+		<result column="pubtimeStartPoint" property="pubtimeStartPoint"/>
+		<result column="pubtimeEndPoint" property="pubtimeEndPoint"/>
+		<result column="contentStartPoint" property="contentStartPoint"/>
+		<result column="contentEndPoint" property="contentEndPoint"/>
+		<collection column="resourceId" property="captureResource" select="com.lmiky.capture.task.pojo.CaptureTaskToResource.listByTask"/>
+	</resultMap>
+
+	<sql id="tableName">
+		t_capture_task
+	</sql>
+	<sql id="tableAlias">
+		CaptureTask
+	</sql>
+
+	<select id="findById" resultMap="captureTask">
+		select * from 
+		<include refid="tableName"/> <include refid="tableAlias" />
+		where id = #{id}
+	</select>
+
+	<select id="find" resultMap="captureTask">
+		select * from 
+		<include refid="tableName"/> <include refid="tableAlias" />
+		<trim prefix="where">
+			<include refid="common.aliasPropertiesCondition"/>
+		</trim>
+	</select>
+	
+	<select id="list" resultMap="captureTask">
+		select * from
+		<include refid="tableName" /> <include refid="tableAlias" />
+		<trim prefix="where">
+			<include refid="common.aliasPropertiesCondition" />
+		</trim>
+		<include refid="common.sortCondition" />
+		<include refid="common.pageCondition" />
+	</select>
+
+	<insert id="add" parameterType="CaptureTask" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		insert into
+		<include refid="tableName" />
+		(
+			 id
+			,name
+			,createTime
+			,startTime
+			,executeInterval
+			,lastExecuteTime
+			,captureUrl
+			,state
+			,pagination
+			,titleStartPoint
+			,titleEndPoint
+			,subtitleStartPoint
+			,subtitleEndPoint
+			,authorStartPoint
+			,authorEndPoint
+			,pubtimeStartPoint
+			,pubtimeEndPoint
+			,contentStartPoint
+			,contentEndPoint
+		)
+		values
+		(
+			 #{id}
+			,#{name}
+			,#{createTime}
+			,#{startTime}
+			,#{executeInterval}
+			,#{lastExecuteTime}
+			,#{captureUrl}
+			,#{state}
+			,#{pagination}
+			,#{titleStartPoint}
+			,#{titleEndPoint}
+			,#{subtitleStartPoint}
+			,#{subtitleEndPoint}
+			,#{authorStartPoint}
+			,#{authorEndPoint}
+			,#{pubtimeStartPoint}
+			,#{pubtimeEndPoint}
+			,#{contentStartPoint}
+			,#{contentEndPoint}
+		)
+	</insert>
+	
+	<update id="update" parameterType="CaptureTask">
+		update <include refid="tableName" /> 
+		<trim prefix="set" suffixOverrides=",">
+			<if test="name != null">name=#{name},</if>
+			<if test="createTime != null">createTime=#{createTime},</if>
+			<if test="startTime != null">startTime=#{startTime},</if>
+			<if test="executeInterval != null">executeInterval=#{executeInterval},</if>
+			<if test="lastExecuteTime != null">lastExecuteTime=#{lastExecuteTime},</if>
+			<if test="captureUrl != null">captureUrl=#{captureUrl},</if>
+			<if test="state != null">state=#{state},</if>
+			<if test="pagination != null">pagination=#{pagination},</if>
+			<if test="titleStartPoint != null">titleStartPoint=#{titleStartPoint},</if>
+			<if test="titleEndPoint != null">titleEndPoint=#{titleEndPoint},</if>
+			<if test="subtitleStartPoint != null">subtitleStartPoint=#{subtitleStartPoint},</if>
+			<if test="subtitleEndPoint != null">subtitleEndPoint=#{subtitleEndPoint},</if>
+			<if test="authorStartPoint != null">authorStartPoint=#{authorStartPoint},</if>
+			<if test="authorEndPoint != null">authorEndPoint=#{authorEndPoint},</if>
+			<if test="pubtimeStartPoint != null">pubtimeStartPoint=#{pubtimeStartPoint},</if>
+			<if test="pubtimeEndPoint != null">pubtimeEndPoint=#{pubtimeEndPoint},</if>
+			<if test="contentStartPoint != null">contentStartPoint=#{contentStartPoint},</if>
+			<if test="contentEndPoint != null">contentEndPoint=#{contentEndPoint},</if>
+		</trim>
+		where id=#{id}
+	</update>
+</mapper>

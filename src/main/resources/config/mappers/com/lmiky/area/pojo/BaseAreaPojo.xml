@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lmiky.area.pojo.BaseAreaPojo">
+	<resultMap type="BaseAreaPojo" id="baseAreaPojo" extends="com.lmiky.jdp.database.pojo.BasePojo.basePojo">
+		<result column="name" property="name"/>
+		<result column="phoneticAlphabet" property="phoneticAlphabet"/>
+	</resultMap>
+	
+	<sql id="join">
+		<if test="hasJoin and joinTableAlias.contains('Province')">
+     		join <include refid="com.lmiky.area.pojo.Province.tableName"/> Province on Province.id = City.province
+     	</if>
+     	<if test="hasJoin and joinTableAlias.contains('Country')">
+     		join <include refid="com.lmiky.area.pojo.Country.tableName"/> Country on Country.id = Province.country
+     	</if>
+	</sql>
+
+	<sql id="updateFields">
+		<if test="name != null">name=#{name},</if>
+		<if test="phoneticAlphabet != null">phoneticAlphabet=#{phoneticAlphabet},</if>
+	</sql>
+</mapper>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lmiky.capture.task.pojo.CaptureTaskToResource">
+	<resultMap type="CaptureTaskToResource" id="captureTaskToResource" extends="com.lmiky.jdp.database.pojo.BasePojo.basePojo">
+		<association column="taskId" property="captureTask" select="com.lmiky.capture.task.pojo.CaptureTask.findById"/>
+		<association column="resourceId" property="captureResource" select="com.lmiky.capture.resource.pojo.CaptureResource.findById"/>
+	</resultMap>
+
+	<sql id="tableName">
+		t_capture_task_to_resource
+	</sql>
+	<sql id="tableAlias">
+		CaptureTaskToResource
+	</sql>
+
+	<select id="find" resultMap="captureTaskToResource">
+		select * from 
+		<include refid="tableName"/> <include refid="tableAlias" />
+		<trim prefix="where">
+			<include refid="common.aliasPropertiesCondition"/>
+		</trim>
+	</select>
+	
+	<select id="list" resultMap="captureTaskToResource">
+		select * from
+		<include refid="tableName" /> <include refid="tableAlias" />
+		<trim prefix="where">
+			<include refid="common.aliasPropertiesCondition" />
+		</trim>
+		<include refid="common.sortCondition" />
+		<include refid="common.pageCondition" />
+	</select>
+	
+	<select id="listByTask" resultMap="captureTaskToResource">
+		select * from
+		<include refid="tableName" /> <include refid="tableAlias" />
+		where taskId = #{taskId}
+	</select>
+
+	<insert id="add" parameterType="CaptureTaskToResource" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		insert into
+		<include refid="tableName" />
+		(
+			 id
+			,taskId
+			,resourceId
+		)
+		values
+		(
+			 #{id}
+			,#{captureTask.id}
+			,#{captureResource.id}
+		)
+	</insert>
+	
+	<update id="update" parameterType="CaptureTaskToResource">
+		update <include refid="tableName" /> 
+		<trim prefix="set" suffixOverrides=",">
+			<if test="captureTask != null and captureTask.id != null">taskId=#{captureTask.id},</if>
+			<if test="captureResource!= null and captureResource.id != null">resourceId=#{captureResource.id},</if>
+		</trim>
+		where id=#{id}
+	</update>
+</mapper>
