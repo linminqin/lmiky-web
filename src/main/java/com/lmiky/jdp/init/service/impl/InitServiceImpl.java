@@ -24,6 +24,7 @@ import com.lmiky.jdp.system.menu.service.MenuParseService;
 import com.lmiky.jdp.user.pojo.Operator;
 import com.lmiky.jdp.user.pojo.Role;
 import com.lmiky.jdp.user.pojo.User;
+import com.lmiky.jdp.user.service.UserService;
 import com.lmiky.jdp.util.EncoderUtils;
 
 /**
@@ -36,6 +37,7 @@ public class InitServiceImpl extends BaseServiceImpl implements InitService {
 	private ModuleParser moduleParser;
 	private MenuParseService menuParseService;
 	private AuthorityService authorityService;
+	private UserService userService;
 
 	/*
 	 * (non-Javadoc)
@@ -66,6 +68,8 @@ public class InitServiceImpl extends BaseServiceImpl implements InitService {
 		Set<Role> roles = new HashSet<Role>();
 		roles.add(role);
 		user.setRoles(roles);
+		//TODO 应该改为删除Operator对应的用户，如果是hibernate框架，则直接执行delete(Operator.class);就可以了，但是mybatis需要额外的操作
+		userService.deleteOperatorUser();
 		delete(Operator.class);
 		save(user);
 
@@ -83,11 +87,23 @@ public class InitServiceImpl extends BaseServiceImpl implements InitService {
 	 */
 	@Transactional(rollbackFor = { Exception.class })
 	public void updateModule() throws Exception {
+		//保存模块
 		List<ModuleGroup> moduleGroups = moduleParser.parse();
 		delete(Function.class);
 		delete(Module.class);
 		delete(ModuleGroup.class);
-		save(moduleGroups);
+		//hibernate写法：save(moduleGroups);
+		for(ModuleGroup moduleGroup : moduleGroups) {
+			save(moduleGroup);
+			for(Module module : moduleGroup.getModules()) {
+				module.setGroup(moduleGroup);
+				save(module);
+				for(Function function : module.getFunctions()) {
+					function.setModule(module);
+					save(function);
+				}
+			}
+		}
 		//重新授权，防止出现类似“权限管理里面看到是整个系统的管理员，而实际有某个模块是没有权限”的情况
 		for(ModuleGroup moduleGroup : moduleGroups) {
 			for(Module module : moduleGroup.getModules()) {
@@ -174,5 +190,20 @@ public class InitServiceImpl extends BaseServiceImpl implements InitService {
 	@Resource(name="menuParseService")
 	public void setMenuParseService(MenuParseService menuParseService) {
 		this.menuParseService = menuParseService;
+	}
+	
+	/**
+	 * @return the userService
+	 */
+	public UserService getUserService() {
+		return userService;
+	}
+
+	/**
+	 * @param userService the userService to set
+	 */
+	@Resource(name="userService")
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
 }

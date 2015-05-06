@@ -95,4 +95,16 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 			throw new DatabaseException(e.getMessage());
 		}
 	}
+
+	/* (non-Javadoc)
+	 * @see com.lmiky.jdp.user.dao.UserDAO#deleteOperatorUser()
+	 */
+	@Override
+	public void deleteOperatorUser() throws DatabaseException {
+		try {
+			sqlSessionTemplate.delete(User.class.getName() + ".deleteOperatorUser");
+		} catch (Exception e) {
+			throw new DatabaseException(e.getMessage());
+		}
+	}
 }

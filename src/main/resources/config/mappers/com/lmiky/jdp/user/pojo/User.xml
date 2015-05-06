@@ -45,6 +45,10 @@
 		</trim>
 		where id=#{id}
 	</update>
+	<!-- 删除所有操作员用户 -->
+	<delete id="deleteOperatorUser">
+		delete from t_user where exists (select 1 from t_operator o where o.id = id)
+	</delete>
 	
 	<delete id="deleteUserRole">
 		delete from t_user_role where userId = #{userId}

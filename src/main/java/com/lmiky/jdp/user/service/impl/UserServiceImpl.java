@@ -6,10 +6,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.lmiky.jdp.database.dao.BaseDAO;
+import com.lmiky.jdp.database.exception.DatabaseException;
 import com.lmiky.jdp.database.model.PropertyCompareType;
 import com.lmiky.jdp.database.model.PropertyFilter;
 import com.lmiky.jdp.service.exception.ServiceException;
 import com.lmiky.jdp.service.impl.BaseServiceImpl;
+import com.lmiky.jdp.user.dao.UserDAO;
 import com.lmiky.jdp.user.pojo.User;
 import com.lmiky.jdp.user.service.UserService;
 
@@ -38,6 +40,18 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 	}
 	
 	/* (non-Javadoc)
+	 * @see com.lmiky.jdp.user.service.UserService#deleteOperatorUser()
+	 */
+	@Transactional(rollbackFor={Exception.class})
+	public void deleteOperatorUser() throws ServiceException {
+		try {
+			((UserDAO)getDAO()).deleteOperatorUser();
+		} catch (DatabaseException e) {
+			throw new ServiceException(e.getMessage());
+		}
+	}
+	
+	/* (non-Javadoc)
 	 * @see com.lmiky.jdp.service.impl.BaseServiceImpl#setDAO(com.lmiky.jdp.database.dao.BaseDAO)
 	 */
 	@Override
@@ -45,4 +59,5 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 	public void setDAO(BaseDAO dao) {
 		super.setDAO(dao);
 	}
+
 }

@@ -22,6 +22,20 @@
 		where id = #{id}
 	</select>
 	
+	<insert id="add" parameterType="ModuleGroup"  useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+	 	insert into <include refid="tableName"/>(name, path) 
+	 	values (#{name}, #{path})
+	 </insert>
+	 
+	 <update id="update" parameterType="ModuleGroup">
+		update <include refid="tableName" /> 
+		<trim prefix="set" suffixOverrides=",">
+			<if test="name != null">name=#{name},</if>
+			<if test="path != null">path=#{path},</if>
+		</trim>
+		where id=#{id}
+	</update>
+	
 	<select id="list" resultMap="moduleGroup">
 		select * from 
 		<include refid="tableName"/> <include refid="tableAlias" />

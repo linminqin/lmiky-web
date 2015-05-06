@@ -33,4 +33,12 @@ public interface UserService extends BaseService {
 	 */
 	public <T extends User> T findByLoginName(String loginName,  Class<T> userClass) throws ServiceException;
 	
+	/**
+	 * 删除所有操作员用户
+	 * @author lmiky
+	 * @date 2015年5月6日 下午5:45:07
+	 * @throws ServiceException
+	 */
+	public void deleteOperatorUser() throws ServiceException;
+	
 }

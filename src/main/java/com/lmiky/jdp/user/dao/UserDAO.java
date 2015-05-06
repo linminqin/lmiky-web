@@ -51,4 +51,12 @@ public interface UserDAO extends BaseDAO {
 	 * @throws DatabaseException
 	 */
 	public void addUserRole(Long userId, Long roleId) throws DatabaseException;
+	
+	/**
+	 * 删除所有操作员用户
+	 * @author lmiky
+	 * @date 2015年5月6日 下午5:45:07
+	 * @throws DatabaseException
+	 */
+	public void deleteOperatorUser() throws DatabaseException;
 }

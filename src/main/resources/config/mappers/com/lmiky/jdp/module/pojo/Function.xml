@@ -52,7 +52,7 @@
 		(
 			 id
 			,name
-			,module
+			,moduleId
 			,authorityCode
 		)
 		values
@@ -68,7 +68,7 @@
 		update <include refid="tableName" /> 
 		<trim prefix="set" suffixOverrides=",">
 			<if test="name != null">name=#{name},</if>
-			<if test="module != null and module.id != null">module=#{module.id},</if>
+			<if test="module != null and module.id != null">moduleId=#{module.id},</if>
 			<if test="authorityCode != null">authorityCode=#{authorityCode},</if>
 		</trim>
 		where id=#{id}
