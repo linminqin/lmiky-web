@@ -3,10 +3,10 @@
 	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	id="WebApp_ID" version="2.5">
-	<display-name>wxly-logic</display-name>
+	<display-name>lmiky-web</display-name>
 	<context-param>
 		<param-name>webAppRootKey</param-name>
-		<param-value>webapp.root.logic</param-value>
+		<param-value>webapp.root.lmikyweb</param-value>
 	</context-param>
 	<context-param>
 		<param-name>log4jConfigLocation</param-name>
