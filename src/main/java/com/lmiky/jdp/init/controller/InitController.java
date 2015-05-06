@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.lmiky.jdp.controller.BaseController;
 import com.lmiky.jdp.init.service.InitService;
-import com.lmiky.jdp.util.PropertiesUtils;
+import com.lmiky.jdp.util.BundleUtils;
 import com.lmiky.jdp.util.ResponseUtils;
 import com.lmiky.jdp.web.constants.Constants;
 
@@ -24,7 +24,7 @@ import com.lmiky.jdp.web.constants.Constants;
 @RequestMapping("/init")
 public class InitController extends BaseController {
 	private InitService initService;
-	private Boolean allowInit = PropertiesUtils.getBooleanValue(Constants.PROPERTIES_KEY_WEB_FILE, "system.allowInit");
+	private Boolean allowInit = BundleUtils.getBooleanValue(Constants.PROPERTIES_KEY_WEB_FILE, "system.allowInit");
 	
 	/**
 	 * 加载

@@ -17,7 +17,6 @@ import org.springframework.ui.ModelMap;
 
 import com.lmiky.jdp.authority.exception.AuthorityException;
 import com.lmiky.jdp.authority.service.AuthorityService;
-import com.lmiky.jdp.web.constants.Constants;
 import com.lmiky.jdp.controller.view.BaseCode;
 import com.lmiky.jdp.controller.view.BaseCodeView;
 import com.lmiky.jdp.logger.util.LoggerUtils;
@@ -32,8 +31,9 @@ import com.lmiky.jdp.sso.service.SsoService;
 import com.lmiky.jdp.system.menu.service.MenuService;
 import com.lmiky.jdp.system.menu.util.MenuUtils;
 import com.lmiky.jdp.user.pojo.User;
-import com.lmiky.jdp.util.PropertiesUtils;
+import com.lmiky.jdp.util.BundleUtils;
 import com.lmiky.jdp.util.UUIDGenerator;
+import com.lmiky.jdp.web.constants.Constants;
 import com.lmiky.jdp.web.util.WebUtils;
 
 
@@ -56,8 +56,8 @@ public abstract class BaseController {
 	protected SsoService ssoService;
 	protected AuthorityService authorityService;
 	protected MenuService menuService;
-	private String viewType = PropertiesUtils.getStringValue(Constants.PROPERTIES_KEY_WEB_FILE, "system.viewType");
-	protected String loginUrl = PropertiesUtils.getStringValue(Constants.PROPERTIES_KEY_WEB_FILE, "system.loginUrl");
+	private String viewType = BundleUtils.getStringValue(Constants.PROPERTIES_KEY_WEB_FILE, "system.viewType");
+	protected String loginUrl = BundleUtils.getStringValue(Constants.PROPERTIES_KEY_WEB_FILE, "system.loginUrl");
 	
 	/**
 	 * 获取加载权限值，如果返回值为空，表示不需要检查权限

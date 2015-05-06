@@ -22,7 +22,7 @@ import com.lmiky.jdp.session.model.SessionInfo;
 import com.lmiky.jdp.system.menu.pojo.MyFavoriteMenu;
 import com.lmiky.jdp.system.menu.service.MenuService;
 import com.lmiky.jdp.system.menu.util.MenuUtils;
-import com.lmiky.jdp.util.PropertiesUtils;
+import com.lmiky.jdp.util.BundleUtils;
 import com.lmiky.jdp.util.ResponseUtils;
 import com.lmiky.jdp.web.constants.Constants;
 
@@ -44,9 +44,9 @@ public class MenuController extends BaseController {
 	public static final String MENU_LABEL_LEFTMENU_PREFIX = "system.menu.label.leftMenu.";
 	public static final String LEFTMENU_ID_LATELYOPE = "latelyOpe";
 	public static final String LEFTMENU_ID_MYFAVORITE = "myFavorite";
-	public static final String MENU_LABEL_LEFTMENU_LATELYOPE = PropertiesUtils.getStringValue(Constants.PROPERTIES_KEY_WEB_FILE, MENU_LABEL_LEFTMENU_PREFIX
+	public static final String MENU_LABEL_LEFTMENU_LATELYOPE = BundleUtils.getStringValue(Constants.PROPERTIES_KEY_WEB_FILE, MENU_LABEL_LEFTMENU_PREFIX
 			+ LEFTMENU_ID_LATELYOPE);
-	public static final String MENU_LABEL_LEFTMENU_MYFAVORITE = PropertiesUtils.getStringValue(Constants.PROPERTIES_KEY_WEB_FILE, MENU_LABEL_LEFTMENU_PREFIX
+	public static final String MENU_LABEL_LEFTMENU_MYFAVORITE = BundleUtils.getStringValue(Constants.PROPERTIES_KEY_WEB_FILE, MENU_LABEL_LEFTMENU_PREFIX
 			+ LEFTMENU_ID_MYFAVORITE);
 	
 	private MenuService menuService;

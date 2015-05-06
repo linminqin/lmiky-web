@@ -1,6 +1,6 @@
 package com.lmiky.jdp.web.constants;
 
-import com.lmiky.jdp.util.PropertiesUtils;
+import com.lmiky.jdp.util.BundleUtils;
 
 /**
  * 常量
@@ -13,7 +13,7 @@ public class Constants extends com.lmiky.jdp.constants.Constants {
 	// 配置文件
 	public static final String PROPERTIES_KEY_WEB_FILE = "config/web";	//WEB配置
 	
-	public static final String SYSTEM_URI_PATTERN = PropertiesUtils.getStringValue(Constants.PROPERTIES_KEY_WEB_FILE, "system.url.pattern").toLowerCase();
+	public static final String SYSTEM_URI_PATTERN = BundleUtils.getStringValue(Constants.PROPERTIES_KEY_WEB_FILE, "system.url.pattern").toLowerCase();
 	
 	// ****************************************properties文件****************************************//
 	

@@ -19,8 +19,8 @@ import com.lmiky.jdp.system.menu.model.SubMenu;
 import com.lmiky.jdp.system.menu.model.TopMenu;
 import com.lmiky.jdp.system.menu.service.MenuParseService;
 import com.lmiky.jdp.system.menu.service.MenuService;
+import com.lmiky.jdp.util.BundleUtils;
 import com.lmiky.jdp.util.Environment;
-import com.lmiky.jdp.util.PropertiesUtils;
 import com.lmiky.jdp.web.constants.Constants;
 import com.lmiky.jdp.web.util.WebUtils;
 
@@ -31,7 +31,7 @@ import com.lmiky.jdp.web.util.WebUtils;
  */
 public class MenuUtils {
 	public static final String SESSION_KEY_MYFAVORITE = "menu_myFavorite_";
-	private static Integer latelyOperateMenuNum = PropertiesUtils.getIntValue(Constants.PROPERTIES_KEY_WEB_FILE, "menu.latelyOperateMenuNum");
+	private static Integer latelyOperateMenuNum = BundleUtils.getIntValue(Constants.PROPERTIES_KEY_WEB_FILE, "menu.latelyOperateMenuNum");
 
 	/**
 	 * 添加收藏夹信息

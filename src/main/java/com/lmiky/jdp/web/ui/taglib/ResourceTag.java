@@ -2,7 +2,7 @@ package com.lmiky.jdp.web.ui.taglib;
 
 import javax.servlet.jsp.JspException;
 
-import com.lmiky.jdp.util.PropertiesUtils;
+import com.lmiky.jdp.util.BundleUtils;
 
 
 /**
@@ -22,7 +22,7 @@ public abstract class ResourceTag extends BaseTag {
 	@Override
 	protected void prepareBeforeWriteHandlers() throws JspException {
 		super.prepareBeforeWriteHandlers();
-		handlers.append(PropertiesUtils.getStringValue(getPropertyKey(), getKey()));
+		handlers.append(BundleUtils.getStringValue(getPropertyKey(), getKey()));
 	}
 
 	/**

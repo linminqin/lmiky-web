@@ -15,8 +15,8 @@ import com.lmiky.jdp.database.model.PropertyFilter;
 import com.lmiky.jdp.database.model.Sort;
 import com.lmiky.jdp.logger.pojo.Logger;
 import com.lmiky.jdp.logger.util.LoggerUtils;
+import com.lmiky.jdp.util.BundleUtils;
 import com.lmiky.jdp.util.DateUtils;
-import com.lmiky.jdp.util.PropertiesUtils;
 import com.lmiky.jdp.view.controller.ViewController;
 import com.lmiky.jdp.web.constants.Constants;
 import com.lmiky.jdp.web.page.model.Page;
@@ -35,8 +35,8 @@ public class LoggerController extends ViewController<Logger> {
 	private String logdescIncludeEnd;		//内容包含符号结尾
 	public LoggerController() {
 		super();
-		contentFormat = PropertiesUtils.getStringValue(Constants.PROPERTIES_KEY_WEB_FILE, "system.logger.view.content.format");
-		logdescInclude = PropertiesUtils.getStringValue(Constants.PROPERTIES_KEY_WEB_FILE, "system.logger.view.logdesc.include");
+		contentFormat = BundleUtils.getStringValue(Constants.PROPERTIES_KEY_WEB_FILE, "system.logger.view.content.format");
+		logdescInclude = BundleUtils.getStringValue(Constants.PROPERTIES_KEY_WEB_FILE, "system.logger.view.logdesc.include");
 		if(StringUtils.isBlank(logdescInclude) || logdescInclude.length() < 2) {
 			logdescIncludeBegin = "";
 			logdescIncludeEnd = "";
