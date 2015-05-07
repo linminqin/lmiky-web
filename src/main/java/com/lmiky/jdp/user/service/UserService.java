@@ -41,4 +41,23 @@ public interface UserService extends BaseService {
 	 */
 	public void deleteOperatorUser() throws ServiceException;
 	
+	/**
+	 * 删除用户-角色中间表
+	 * @author lmiky
+	 * @date 2015年5月7日 下午6:10:31
+	 * @param userId
+	 * @throws ServiceException
+	 */
+	public void deleteUserRole(Long userId) throws ServiceException;
+	
+	/**
+	 * 添加用户-角色中间表
+	 * @author lmiky
+	 * @date 2015年5月7日 下午6:10:25
+	 * @param userId
+	 * @param roleId
+	 * @throws ServiceException
+	 */
+	public void addUserRole(Long userId, Long roleId) throws ServiceException;
+	
 }

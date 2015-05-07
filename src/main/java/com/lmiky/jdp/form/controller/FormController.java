@@ -532,7 +532,7 @@ public abstract class FormController<T extends BasePojo> extends ViewController<
 	}
 	
 	/**
-	 * 获取记录说名
+	 * 获取记录说明
 	 * @author lmiky
 	 * @date 2013-5-10
 	 * @param pojo

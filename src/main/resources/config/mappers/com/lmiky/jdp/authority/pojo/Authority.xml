@@ -53,8 +53,16 @@
 	
 	<!-- 检查是否拥有权限 -->
 	<select id="checkAuthority" resultType="java.lang.Integer">
-		select count(*) from <include refid="com.lmiky.jdp.user.pojo.Operator.tableName"/> Operator, <include refid="tableName"/>  Authority, <include refid="com.lmiky.jdp.user.pojo.Role.tableName"/> Role 
+		select count(*) from 
+			<include refid="com.lmiky.jdp.user.pojo.Operator.tableName"/> Operator, 
+			<include refid="tableName"/>  Authority, 
+			<include refid="com.lmiky.jdp.user.pojo.Role.tableName"/> Role ,
+  			t_user_role UserRole
 			where 
-		Operator.id = #{userId} and Role.id = Authority.operator and Authority.authorityCode = #{authorityCode}
+			Operator.id = #{userId} 
+			and Authority.authorityCode = #{authorityCode}
+			and Role.id = Authority.operator 
+			and Role.id = UserRole.roleId
+			and Operator.id = UserRole.userId
 	</select>
 </mapper>

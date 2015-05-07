@@ -52,6 +52,30 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 	}
 	
 	/* (non-Javadoc)
+	 * @see com.lmiky.jdp.user.service.UserService#deleteUserRole(java.lang.Long)
+	 */
+	@Transactional(rollbackFor={Exception.class})
+	public void deleteUserRole(Long userId) throws ServiceException {
+		try {
+			((UserDAO)getDAO()).deleteUserRole(userId);
+		} catch (DatabaseException e) {
+			throw new ServiceException(e.getMessage());
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see com.lmiky.jdp.user.service.UserService#addUserRole(java.lang.Long, java.lang.Long)
+	 */
+	@Transactional(rollbackFor={Exception.class})
+	public void addUserRole(Long userId, Long roleId) throws ServiceException {
+		try {
+			((UserDAO)getDAO()).addUserRole(userId, roleId);
+		} catch (DatabaseException e) {
+			throw new ServiceException(e.getMessage());
+		}
+	}
+	
+	/* (non-Javadoc)
 	 * @see com.lmiky.jdp.service.impl.BaseServiceImpl#setDAO(com.lmiky.jdp.database.dao.BaseDAO)
 	 */
 	@Override
@@ -59,5 +83,4 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 	public void setDAO(BaseDAO dao) {
 		super.setDAO(dao);
 	}
-
 }

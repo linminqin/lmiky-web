@@ -24,7 +24,7 @@ import com.lmiky.jdp.system.menu.service.MenuParseService;
 import com.lmiky.jdp.user.pojo.Operator;
 import com.lmiky.jdp.user.pojo.Role;
 import com.lmiky.jdp.user.pojo.User;
-import com.lmiky.jdp.user.service.UserService;
+import com.lmiky.jdp.user.service.OperatorService;
 import com.lmiky.jdp.util.EncoderUtils;
 
 /**
@@ -37,7 +37,7 @@ public class InitServiceImpl extends BaseServiceImpl implements InitService {
 	private ModuleParser moduleParser;
 	private MenuParseService menuParseService;
 	private AuthorityService authorityService;
-	private UserService userService;
+	private OperatorService operatorService;
 
 	/*
 	 * (non-Javadoc)
@@ -69,9 +69,9 @@ public class InitServiceImpl extends BaseServiceImpl implements InitService {
 		roles.add(role);
 		user.setRoles(roles);
 		//TODO 应该改为删除Operator对应的用户，如果是hibernate框架，则直接执行delete(Operator.class);就可以了，但是mybatis需要额外的操作
-		userService.deleteOperatorUser();
+		operatorService.deleteOperatorUser();
 		delete(Operator.class);
-		save(user);
+		operatorService.save(user);
 
 		//放在初始化模块之前，是因为修改模块中也要授权，先删除，修改模块就不需要浪费时间授权之后还要再删除
 		delete(Authority.class);
@@ -193,17 +193,17 @@ public class InitServiceImpl extends BaseServiceImpl implements InitService {
 	}
 	
 	/**
-	 * @return the userService
+	 * @return the operatorService
 	 */
-	public UserService getUserService() {
-		return userService;
+	public OperatorService getOperatorService() {
+		return operatorService;
 	}
 
 	/**
-	 * @param userService the userService to set
+	 * @param operatorService the operatorService to set
 	 */
-	@Resource(name="userService")
-	public void setUserService(UserService userService) {
-		this.userService = userService;
+	@Resource(name="operatorService")
+	public void setOperatorService(OperatorService operatorService) {
+		this.operatorService = operatorService;
 	}
 }
