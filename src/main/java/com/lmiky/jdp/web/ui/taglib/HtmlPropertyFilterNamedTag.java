@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.jsp.JspException;
 
-import com.lmiky.jdp.web.constants.Constants;
+import com.lmiky.jdp.web.util.WebUtils;
 
 
 /**
@@ -24,7 +24,7 @@ public class HtmlPropertyFilterNamedTag extends BaseTag {
 	@Override
 	public int doStartTag() throws JspException {
 		try {
-			getPageContext().getOut().write(Constants.HTTP_PARAM_PROPERTYFILTER_NAME_PREFIX + propertyName + "_" + compareType.toUpperCase());
+			getPageContext().getOut().write(WebUtils.buildPropertyFilterName(propertyName, compareType));
 			return EVAL_BODY_INCLUDE;
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -71,7 +71,6 @@ public abstract class ViewController<T extends BasePojo> extends BasePojoControl
 			appendPropertyFilters(modelMap, request, propertyFilters);
 			// 生成排序
 			List<Sort> sorts = generateSorts(modelMap, request);
-			appendSorts(modelMap, request, sorts);
 			modelMap.put("sorts", sorts);
 			// 查询分页内容，将分页信息设入页面
 			modelMap.put("page", fillPage(page, modelMap, request, propertyFilters, sorts, null));
@@ -162,6 +161,7 @@ public abstract class ViewController<T extends BasePojo> extends BasePojoControl
 	 */
 	protected List<Sort> generateSorts(ModelMap modelMap, HttpServletRequest request) {
 		List<Sort> sorts = SortUtils.generateFromHttpRequest(request, pojoClass);
+		appendSorts(modelMap, request, sorts);
 		//当页面请求了排序方式，且排序值为空时，即表示以该字段的“无序”方式排序
 		if (sorts.isEmpty() && !hasDefaultSortParam(modelMap, request)) {
 			sorts = getDefaultSort(modelMap, request);
@@ -238,7 +238,7 @@ public abstract class ViewController<T extends BasePojo> extends BasePojoControl
 	 * @throws Exception
 	 */
 	protected void appendListAttribute(ModelMap modelMap, HttpServletRequest request, HttpServletResponse resopnse) throws Exception {
-
+		modelMap.put(Constants.HTTP_PARAM_POJO_CLASSNAME, pojoClass.getName());
 	}
 
 	/**

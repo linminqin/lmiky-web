@@ -1,8 +1,10 @@
 package com.lmiky.jdp.web.page.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +22,7 @@ import com.lmiky.jdp.web.page.service.PageService;
  */
 @Service("pageService")
 public class PageServiceImpl implements PageService {
-	private BaseDAO baseDAO;
+	protected BaseDAO baseDAO;
 	
 	/* (non-Javadoc)
 	 * @see com.lmiky.jdp.web.page.service.PageService#fillPage(java.lang.Class)
@@ -43,10 +45,31 @@ public class PageServiceImpl implements PageService {
 	 */
 	@Transactional(readOnly=true)
 	public <T extends BasePojo> Page<T> fillPage(Class<T> pojoClass, Page<T> page, List<PropertyFilter> filters, List<Sort>sorts) {
-		page.setItemCount(baseDAO.count(pojoClass, filters));
+		int itemCount = getItemCount(pojoClass, page, filters);
+		page.setItemCount(itemCount);
 		page.resetCurrentPage();
-		page.setItems(getDAO().list(pojoClass, filters, sorts, page.getItemOffset(), page.getPageSize()));
+		if(itemCount > 0) {	//如果没记录，则减少操作
+			page.setItems(listItems(pojoClass, page, filters, sorts));
+		} else {
+			page.setItems(new ArrayList<T>());
+		}
 		return page;
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.lmiky.jdp.web.page.service.PageService#getItemCount(java.lang.Class, com.lmiky.jdp.web.page.model.Page, java.util.List)
+	 */
+	@Transactional(readOnly=true)
+	public <T extends BasePojo> int getItemCount(Class<T> pojoClass, Page<T> page, List<PropertyFilter> filters) { 
+		return baseDAO.count(pojoClass, filters);
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.lmiky.jdp.web.page.service.PageService#listItems(java.lang.Class, com.lmiky.jdp.web.page.model.Page, java.util.List, java.util.List)
+	 */
+	@Transactional(readOnly=true)
+	public <T extends BasePojo> List<T> listItems(Class<T> pojoClass, Page<T> page, List<PropertyFilter> filters, List<Sort>sorts) { 
+		return getDAO().list(pojoClass, filters, sorts, page.getItemOffset(), page.getPageSize());
 	}
 	
 	/**
@@ -65,7 +88,7 @@ public class PageServiceImpl implements PageService {
 	 * @date 2013-4-16
 	 * @param baseDAO
 	 */
-	@Autowired
+	@Resource(name="baseDAO")
 	public void setDAO(BaseDAO baseDAO) {
 		this.baseDAO = baseDAO;
 	}

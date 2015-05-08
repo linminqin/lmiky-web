@@ -57,7 +57,7 @@ public class PropertyFilterUtils {
 							PropertyCompareType compareType = Enum.valueOf(PropertyCompareType.class, parameterKeys[2]);
 							//是否别的对象的属性
 							if(propertyName.indexOf(".") == -1) {
-								if (pojoDescriptors.get(propertyName) == null) {
+								if (pojoDescriptors.get(propertyName) == null) {	//没有该属性
 									continue;
 								}
 								filterList.add(new PropertyFilter(propertyName, ConvertUtils.convert(propertyValue, pojoDescriptors.get(propertyName)),

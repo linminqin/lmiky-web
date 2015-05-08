@@ -41,4 +41,27 @@ public interface PageService {
 	 * @param sorts	排序
 	 */
 	public <T extends BasePojo> Page<T> fillPage(Class<T> pojoClass, Page<T> page, List<PropertyFilter> filters, List<Sort>sorts);
+	
+	/**
+	 * 获取记录数
+	 * @author lmiky
+	 * @date 2015年5月8日 上午9:50:36
+	 * @param pojoClass
+	 * @param page
+	 * @param filters
+	 * @return
+	 */
+	public <T extends BasePojo> int getItemCount(Class<T> pojoClass, Page<T> page, List<PropertyFilter> filters);
+	
+	/**
+	 * 获取记录列表
+	 * @author lmiky
+	 * @date 2015年5月8日 上午9:47:21
+	 * @param pojoClass
+	 * @param page
+	 * @param filters
+	 * @param sorts
+	 * @return
+	 */
+	public <T extends BasePojo> List<T> listItems(Class<T> pojoClass, Page<T> page, List<PropertyFilter> filters, List<Sort>sorts);
 }

@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.lmiky.jdp.util.DateUtils;
 import com.lmiky.jdp.util.UUIDGenerator;
 import com.lmiky.jdp.web.constants.Constants;
+import com.lmiky.jdp.web.util.WebUtils;
 
 /**
  * 属性过滤标签
@@ -51,7 +52,7 @@ public class HtmlPropertyFilterTag extends BaseHtmlTag {
 	 */
 	@Override
 	protected void prepareBeforeDetailTag() throws JspException {
-		setName(Constants.HTTP_PARAM_PROPERTYFILTER_NAME_PREFIX + propertyName + "_" + compareType.toUpperCase());
+		setName(WebUtils.buildPropertyFilterName(propertyName, compareType));
 		if (INPUT_TYPE_SELECT.equals(inputType)) {
 			setType(null);
 		} else if (INPUT_TYPE_RADIO.equals(inputType)) {

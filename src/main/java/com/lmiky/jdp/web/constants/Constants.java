@@ -38,6 +38,8 @@ public class Constants extends com.lmiky.jdp.constants.Constants {
 	public static final String HTTP_PARAM_TOPMENU_ID= "topMenuId";	//顶层菜单ID
 	public static final String HTTP_PARAM_MENU_FROM= "menuFrom";	//菜单来源
 	
+	public static final String HTTP_PARAM_POJO_CLASSNAME= "pojoClassName";	//实体类名
+	
 	//**********************************************Http参数**********************************************//
 	
 	//**********************************************session属性**********************************************//

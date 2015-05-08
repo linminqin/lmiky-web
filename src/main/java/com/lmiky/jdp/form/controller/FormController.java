@@ -381,8 +381,6 @@ public abstract class FormController<T extends BasePojo> extends ViewController<
 				//检查权限
 				checkAuthority(modelMap, request, sessionInfo, getAddAuthorityCode(modelMap, request));
 			}
-			//设置对象值
-			setPojoProperties(pojo, modelMap, request);
 			if(hasLock) {
 				//检查输入
 				List<ValidateError> errors = validateInput(pojo, openMode, modelMap, request);
@@ -391,6 +389,8 @@ public abstract class FormController<T extends BasePojo> extends ViewController<
 						putValidateError(modelMap, error);
 					}
 				} else {
+					//设置对象值
+					setPojoProperties(pojo, modelMap, request);
 					//保存对象
 					savePojo(pojo, modelMap, request, resopnse);
 					putMessage(modelMap, "保存成功!");
