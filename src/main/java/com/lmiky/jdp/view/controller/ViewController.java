@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.ui.ModelMap;
 
-import com.lmiky.jdp.controller.BaseController;
+import com.lmiky.jdp.controller.BaseWebController;
 import com.lmiky.jdp.controller.BasePojoController;
 import com.lmiky.jdp.database.model.PropertyFilter;
 import com.lmiky.jdp.database.model.Sort;
@@ -42,7 +42,7 @@ public abstract class ViewController<T extends BasePojo> extends BasePojoControl
 	 * @return
 	 */
 	public String executeList(ModelMap modelMap, HttpServletRequest request, HttpServletResponse resopnse) throws Exception {
-		return executeList(modelMap, request, resopnse, BaseController.REQUESTTYPE_NORMAL);
+		return executeList(modelMap, request, resopnse, BaseWebController.REQUESTTYPE_NORMAL);
 	}
 
 	/**

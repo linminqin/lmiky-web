@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.lmiky.jdp.controller.BaseController;
+import com.lmiky.jdp.controller.BaseWebController;
 import com.lmiky.jdp.filemanager.util.FileUtils;
 import com.lmiky.jdp.json.util.JsonUtils;
 import com.lmiky.jdp.util.BundleUtils;
@@ -23,7 +23,7 @@ import com.lmiky.jdp.util.ResponseUtils;
  */
 @Controller
 @RequestMapping("/kindEditorFile")
-public class KindEditorFileController extends BaseController {
+public class KindEditorFileController extends BaseWebController {
 	//文件字段名称
 	public static final String PARAM_FIELDNAME_FILE = "imgFile";
 	//是否成功键名

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.lmiky.jdp.controller.BaseController;
+import com.lmiky.jdp.controller.BaseWebController;
 import com.lmiky.jdp.database.model.PropertyCompareType;
 import com.lmiky.jdp.database.model.PropertyFilter;
 import com.lmiky.jdp.database.model.Sort;
@@ -26,7 +26,7 @@ import com.lmiky.jdp.session.model.SessionInfo;
  */
 @Controller
 @RequestMapping("/module")
-public class ModuleController extends BaseController {
+public class ModuleController extends BaseWebController {
 	//树列表前缀
 	public static final String TREE_LIST_ID_PREFIX_SYSTEM = "s_";
 	public static final String TREE_LIST_ID_PREFIX_GROUP = "g_";

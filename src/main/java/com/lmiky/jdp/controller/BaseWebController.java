@@ -21,7 +21,6 @@ import com.lmiky.jdp.controller.view.BaseCode;
 import com.lmiky.jdp.controller.view.BaseCodeView;
 import com.lmiky.jdp.logger.util.LoggerUtils;
 import com.lmiky.jdp.module.pojo.Module;
-import com.lmiky.jdp.service.BaseService;
 import com.lmiky.jdp.service.exception.ServiceException;
 import com.lmiky.jdp.session.exception.SessionException;
 import com.lmiky.jdp.session.model.SessionInfo;
@@ -42,7 +41,7 @@ import com.lmiky.jdp.web.util.WebUtils;
  * @author lmiky
  * @date 2013-4-15
  */
-public abstract class BaseController {
+public abstract class BaseWebController extends BaseController {
 	public static final String MESSAGE_INFO_KEY = "messageInfos";
 	public static final String ERROR_INFO_KEY = "errorInfos";
 	public static final String REDIRECT_TO_LOGIN_REASON_KEY = "redirectToLoginReason";	//跳转到登陆页面重新登陆原因
@@ -51,7 +50,6 @@ public abstract class BaseController {
 	public static final String REQUESTTYPE_NORMAL = "normal";	//普通方式
 	public static final String REQUESTTYPE_AJAX = "ajax";		//ajax方式
 	
-	protected BaseService service;
 	protected SessionService sessionService;
 	protected SsoService ssoService;
 	protected AuthorityService authorityService;
@@ -471,27 +469,6 @@ public abstract class BaseController {
 		modelMap.put("subMenu", MenuUtils.getSubMenu(modelMap, request));
 		//获取拥有权限
 		modelMap.put("topMenu", MenuUtils.getTopMenu(modelMap, request));
-	}
-	
-	/**
-	 * 设置业务对象
-	 * @author lmiky
-	 * @date 2013-4-15
-	 * @param service
-	 */
-	@Resource(name="baseService")
-	public void setService(BaseService service) {
-		this.service = service;
-	}
-	
-	/**
-	 * 获取业务对象
-	 * @author lmiky
-	 * @date 2013-4-15
-	 * @return
-	 */
-	public BaseService getService() {
-		return service;
 	}
 	
 	/**

@@ -13,7 +13,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.lmiky.jdp.controller.BaseController;
+import com.lmiky.jdp.controller.BaseWebController;
 import com.lmiky.jdp.database.model.PropertyCompareType;
 import com.lmiky.jdp.database.model.PropertyFilter;
 import com.lmiky.jdp.json.util.JsonUtils;
@@ -33,7 +33,7 @@ import com.lmiky.jdp.web.constants.Constants;
  */
 @Controller
 @RequestMapping("/sso/system/menu")
-public class MenuController extends BaseController {
+public class MenuController extends BaseWebController {
 	public static final String CODE_SUCCESS = "0";
 	public static final String CODE_FAIL = "-1";
 

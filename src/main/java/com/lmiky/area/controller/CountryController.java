@@ -1,7 +1,5 @@
 package com.lmiky.area.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,9 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.lmiky.area.pojo.Country;
-import com.lmiky.jdp.form.controller.FormController;
-import com.lmiky.jdp.form.model.ValidateError;
-import com.lmiky.jdp.form.util.ValidateUtils;
 
 /**
  * 国家
@@ -22,7 +17,7 @@ import com.lmiky.jdp.form.util.ValidateUtils;
  */
 @Controller
 @RequestMapping("/country")
-public class CountryController extends FormController<Country> {
+public class CountryController extends BaseAreaController<Country> {
 	
 	/* (non-Javadoc)
 	 * @see com.lmiky.jdp.form.controller.FormController#getAddAuthorityCode(org.springframework.ui.ModelMap, javax.servlet.http.HttpServletRequest)
@@ -85,20 +80,9 @@ public class CountryController extends FormController<Country> {
 	@RequestMapping("/save.shtml")
 	public String save(ModelMap modelMap, HttpServletRequest request, HttpServletResponse resopnse,
 			@RequestParam(value = "id", required = false) Long id) throws Exception {
-		modelMap.put("flag", "refresh");
-		return executeSave(modelMap, request, resopnse, id);
+		return executeSaveArea(modelMap, request, resopnse, id);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.lmiky.jdp.form.controller.FormController#validateInput(com.lmiky.jdp.database.pojo.BasePojo, java.lang.String, org.springframework.ui.ModelMap, javax.servlet.http.HttpServletRequest)
-	 */
-	@Override
-	public List<ValidateError> validateInput(Country pojo, String openMode, ModelMap modelMap, HttpServletRequest request) throws Exception {
-		List<ValidateError> validateErrors = super.validateInput(pojo, openMode, modelMap, request);
-		ValidateUtils.validateRequired(request, "name", "名称", validateErrors);
-		return validateErrors;
-	}
-	
 	/**
 	 * 删除
 	 * @author lmiky
@@ -112,8 +96,6 @@ public class CountryController extends FormController<Country> {
 	 */
 	@RequestMapping("/delete.shtml")
 	public String delete(ModelMap modelMap, HttpServletRequest request, HttpServletResponse resopnse, @RequestParam(value = "id", required = false) Long id) throws Exception {
-		modelMap.put("flag", "refresh");
-		executeDelete(modelMap, request, resopnse, id);
-		return executeLoad(modelMap, request, resopnse, null);
+		return executeDeleteArea(modelMap, request, resopnse, null);
 	}
 }

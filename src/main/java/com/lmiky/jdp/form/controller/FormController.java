@@ -13,7 +13,7 @@ import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.ui.ModelMap;
 
-import com.lmiky.jdp.controller.BaseController;
+import com.lmiky.jdp.controller.BaseWebController;
 import com.lmiky.jdp.database.pojo.BasePojo;
 import com.lmiky.jdp.form.model.ValidateError;
 import com.lmiky.jdp.lock.exception.LockException;
@@ -99,7 +99,7 @@ public abstract class FormController<T extends BasePojo> extends ViewController<
 	 * @throws Exception 
 	 */
 	public String executeLoad(ModelMap modelMap, HttpServletRequest request, HttpServletResponse resopnse, Long id) throws Exception {
-		return executeLoad(modelMap, request, resopnse, id, BaseController.REQUESTTYPE_NORMAL);
+		return executeLoad(modelMap, request, resopnse, id, BaseWebController.REQUESTTYPE_NORMAL);
 	}
 
 	/**
@@ -329,7 +329,7 @@ public abstract class FormController<T extends BasePojo> extends ViewController<
 	 * @throws Exception
 	 */
 	public String executeSave(ModelMap modelMap, HttpServletRequest request, HttpServletResponse resopnse,  Long id) throws Exception {
-		return executeSave(modelMap, request, resopnse, id, BaseController.REQUESTTYPE_NORMAL);
+		return executeSave(modelMap, request, resopnse, id, BaseWebController.REQUESTTYPE_NORMAL);
 	}
 	
 	/**
@@ -589,7 +589,7 @@ public abstract class FormController<T extends BasePojo> extends ViewController<
 	 * @throws Exception
 	 */
 	public String executeDelete(ModelMap modelMap, HttpServletRequest request, HttpServletResponse resopnse, Long id) throws Exception {
-		return executeDelete(modelMap, request, resopnse, id, BaseController.REQUESTTYPE_NORMAL);
+		return executeDelete(modelMap, request, resopnse, id, BaseWebController.REQUESTTYPE_NORMAL);
 	}
 	
 	/**
@@ -686,7 +686,7 @@ public abstract class FormController<T extends BasePojo> extends ViewController<
 	 * @throws Exception
 	 */
 	public String executeBatchDelete(ModelMap modelMap, HttpServletRequest request, HttpServletResponse resopnse,  Long[] ids) throws Exception {
-		return executeBatchDelete(modelMap, request, resopnse, ids, BaseController.REQUESTTYPE_NORMAL);
+		return executeBatchDelete(modelMap, request, resopnse, ids, BaseWebController.REQUESTTYPE_NORMAL);
 	}
 	
 	/**

@@ -16,8 +16,12 @@ import com.lmiky.jdp.util.StringUtils;
 @MappedSuperclass
 public class BaseAreaPojo extends BasePojo {
 	
+	public static final String POJO_FIELD_NAME_NAME = "name";
+	public static final String POJO_FIELD_NAME_CODE = "code";
+	
 	private String name;
 	private String phoneticAlphabet;
+	private String code;
 	
 	/**
 	 * @return the name
@@ -45,5 +49,18 @@ public class BaseAreaPojo extends BasePojo {
 	 */
 	public void setPhoneticAlphabet(String phoneticAlphabet) {
 		this.phoneticAlphabet = phoneticAlphabet;
+	}
+	/**
+	 * @return the code
+	 */
+	@Column(name = "code")
+	public String getCode() {
+		return code;
+	}
+	/**
+	 * @param code the code to set
+	 */
+	public void setCode(String code) {
+		this.code = code;
 	}
 }

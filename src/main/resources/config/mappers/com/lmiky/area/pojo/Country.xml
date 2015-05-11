@@ -45,12 +45,14 @@
 			 id
 			,name
 			,phoneticAlphabet
+			,code
 		)
 		values
 		(
 			 #{id}
 			,#{name}
 			,#{phoneticAlphabet}
+			,#{code} 
 		)
 	</insert>
 	

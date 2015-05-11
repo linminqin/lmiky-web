@@ -13,7 +13,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.lmiky.jdp.controller.BaseController;
+import com.lmiky.jdp.controller.BaseWebController;
 import com.lmiky.jdp.logger.model.OperateType;
 import com.lmiky.jdp.logger.util.LoggerUtils;
 import com.lmiky.jdp.service.exception.ServiceException;
@@ -31,7 +31,7 @@ import com.lmiky.jdp.web.constants.Constants;
  */
 @Controller
 @RequestMapping("/sso/login")
-public class LoginController extends BaseController {
+public class LoginController extends BaseWebController {
 	public static final String COOKIE_NAME_LOGINNAME = "loginName";
 
 	/**

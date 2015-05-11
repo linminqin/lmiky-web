@@ -53,6 +53,7 @@
 			 id
 			,name
 			,phoneticAlphabet
+			,code
 			,country
 		)
 		values
@@ -60,6 +61,7 @@
 			 #{id}
 			,#{name}
 			,#{phoneticAlphabet}
+			,#{code} 
 			,#{country.id}
 		)
 	</insert>

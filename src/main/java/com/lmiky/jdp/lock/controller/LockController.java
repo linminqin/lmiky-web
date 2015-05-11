@@ -9,7 +9,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.lmiky.jdp.controller.BaseController;
+import com.lmiky.jdp.controller.BaseWebController;
 import com.lmiky.jdp.lock.service.LockService;
 import com.lmiky.jdp.session.model.SessionInfo;
 
@@ -20,7 +20,7 @@ import com.lmiky.jdp.session.model.SessionInfo;
  */
 @Controller
 @RequestMapping("/lock")
-public class LockController extends BaseController {
+public class LockController extends BaseWebController {
 	private LockService lockService;
 	
 	/**

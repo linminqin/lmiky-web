@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.lmiky.jdp.controller.BaseController;
+import com.lmiky.jdp.controller.BaseWebController;
 import com.lmiky.jdp.filemanager.util.FileUtils;
 import com.lmiky.jdp.json.util.JsonUtils;
 import com.lmiky.jdp.util.ResponseUtils;
@@ -22,7 +22,7 @@ import com.lmiky.jdp.util.ResponseUtils;
  */
 @Controller
 @RequestMapping("/file")
-public class FileController extends BaseController {
+public class FileController extends BaseWebController {
 	//文件路径
 	public static final String KEY_NAME_FILE_PATH = "filePath";
 	//是否成功键名

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.lmiky.cms.directory.pojo.CmsDirectory;
-import com.lmiky.jdp.controller.BaseController;
+import com.lmiky.jdp.controller.BaseWebController;
 import com.lmiky.jdp.controller.view.BaseCode;
 import com.lmiky.jdp.controller.view.BaseCodeView;
 import com.lmiky.jdp.form.model.ValidateError;
@@ -159,7 +159,7 @@ public class DirectoryController extends BaseTreeController<CmsDirectory> {
 	@RequestMapping("/delete.shtml")
 	public String delete(ModelMap modelMap, HttpServletRequest request, HttpServletResponse resopnse,
 			@RequestParam(value = "id", required = true) Long id) throws Exception {
-		return executeDelete(modelMap, request, resopnse, id, BaseController.REQUESTTYPE_AJAX);
+		return executeDelete(modelMap, request, resopnse, id, BaseWebController.REQUESTTYPE_AJAX);
 	}
 	
 	/* (non-Javadoc)

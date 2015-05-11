@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.lmiky.area.pojo.City;
 import com.lmiky.area.pojo.Country;
 import com.lmiky.area.pojo.Province;
-import com.lmiky.jdp.controller.BaseController;
+import com.lmiky.jdp.controller.BaseWebController;
 import com.lmiky.jdp.database.model.PropertyCompareType;
 import com.lmiky.jdp.database.model.PropertyFilter;
 import com.lmiky.jdp.database.model.Sort;
@@ -25,7 +25,7 @@ import com.lmiky.jdp.session.model.SessionInfo;
  */
 @Controller
 @RequestMapping("/area")
-public class AreaController extends BaseController {
+public class AreaController extends BaseWebController {
 	public static final String AREA_TYPE_ROOT = "root";
 	public static final String AREA_TYPE_COUNTRY = "country";
 	public static final String AREA_TYPE_PROVINCE = "province";

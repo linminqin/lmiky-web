@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.lmiky.jdp.controller.BaseController;
+import com.lmiky.jdp.controller.BaseWebController;
 import com.lmiky.jdp.init.service.InitService;
 import com.lmiky.jdp.util.BundleUtils;
 import com.lmiky.jdp.util.ResponseUtils;
@@ -22,7 +22,7 @@ import com.lmiky.jdp.web.constants.Constants;
  */
 @Controller
 @RequestMapping("/init")
-public class InitController extends BaseController {
+public class InitController extends BaseWebController {
 	private InitService initService;
 	private Boolean allowInit = BundleUtils.getBooleanValue(Constants.PROPERTIES_KEY_WEB_FILE, "system.allowInit");
 	

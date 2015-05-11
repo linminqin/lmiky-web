@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Component;
 
-import com.lmiky.jdp.controller.BaseController;
+import com.lmiky.jdp.controller.BaseWebController;
 
 /**
  * 基本信息视图
@@ -18,8 +18,8 @@ import com.lmiky.jdp.controller.BaseController;
  */
 @Component
 public class BaseInfoJsonView extends BaseJsonView {
-	public static final String KEY_ERROR_INFO_KEY = BaseController.ERROR_INFO_KEY;
-	public static final String KEY_MESSAGE_INFO_KEY = BaseController.MESSAGE_INFO_KEY;
+	public static final String KEY_ERROR_INFO_KEY = BaseWebController.ERROR_INFO_KEY;
+	public static final String KEY_MESSAGE_INFO_KEY = BaseWebController.MESSAGE_INFO_KEY;
 
 	
 	/* (non-Javadoc)
@@ -46,7 +46,7 @@ public class BaseInfoJsonView extends BaseJsonView {
 	@SuppressWarnings("unchecked")
 	protected void fillErrorInfo(Map<String, Object> map, HttpServletRequest request, HttpServletResponse response, Map<String, Object> resultMap)
 			throws Exception {
-		List<String> errorInfos = (List<String>) map.get(BaseController.ERROR_INFO_KEY);
+		List<String> errorInfos = (List<String>) map.get(BaseWebController.ERROR_INFO_KEY);
 		if (errorInfos == null) {
 			errorInfos = new ArrayList<String>();
 		}
@@ -66,7 +66,7 @@ public class BaseInfoJsonView extends BaseJsonView {
 	@SuppressWarnings("unchecked")
 	protected void fillMessageInfo(Map<String, Object> map, HttpServletRequest request, HttpServletResponse response, Map<String, Object> resultMap)
 			throws Exception {
-		List<String> messageInfos = (List<String>) map.get(BaseController.MESSAGE_INFO_KEY);
+		List<String> messageInfos = (List<String>) map.get(BaseWebController.MESSAGE_INFO_KEY);
 		if (messageInfos == null) {
 			messageInfos = new ArrayList<String>();
 		}

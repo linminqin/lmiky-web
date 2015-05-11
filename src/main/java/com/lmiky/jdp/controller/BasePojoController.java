@@ -8,7 +8,7 @@ import com.lmiky.jdp.database.pojo.BasePojo;
  * @author lmiky
  * @date 2014-1-2
  */
-public abstract class BasePojoController<T extends BasePojo> extends BaseController {
+public abstract class BasePojoController<T extends BasePojo> extends BaseWebController {
 	protected Class<T> pojoClass;
 	
 	@SuppressWarnings("unchecked")

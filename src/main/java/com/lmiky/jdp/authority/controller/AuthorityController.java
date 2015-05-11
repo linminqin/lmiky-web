@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.lmiky.jdp.controller.BaseController;
+import com.lmiky.jdp.controller.BaseWebController;
 import com.lmiky.jdp.module.pojo.ModuleGroup;
 import com.lmiky.jdp.session.model.SessionInfo;
 
@@ -21,7 +21,7 @@ import com.lmiky.jdp.session.model.SessionInfo;
  */
 @Controller
 @RequestMapping("/authority")
-public class AuthorityController extends BaseController {
+public class AuthorityController extends BaseWebController {
 	
 	/* (non-Javadoc)
 	 * @see com.lmiky.jdp.base.controller.BaseController#getLoadAuthorityCode(org.springframework.ui.ModelMap, javax.servlet.http.HttpServletRequest)

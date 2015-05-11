@@ -25,7 +25,7 @@ import com.lmiky.jdp.web.model.ContinuationRequest;
  */
 @Controller
 @RequestMapping("/common")
-public class CommonController extends BaseController {
+public class CommonController extends BaseWebController {
 
 	/**
 	 * 回退

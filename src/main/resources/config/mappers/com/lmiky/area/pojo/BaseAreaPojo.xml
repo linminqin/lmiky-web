@@ -6,6 +6,7 @@
 	<resultMap type="BaseAreaPojo" id="baseAreaPojo" extends="com.lmiky.jdp.database.pojo.BasePojo.basePojo">
 		<result column="name" property="name"/>
 		<result column="phoneticAlphabet" property="phoneticAlphabet"/>
+		<result column="code" property="code"/>
 	</resultMap>
 	
 	<sql id="join">
@@ -20,5 +21,6 @@
 	<sql id="updateFields">
 		<if test="name != null">name=#{name},</if>
 		<if test="phoneticAlphabet != null">phoneticAlphabet=#{phoneticAlphabet},</if>
+		<if test="code != null">code=#{code},</if>
 	</sql>
 </mapper>
