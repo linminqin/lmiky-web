@@ -15,6 +15,11 @@ public class Constants extends com.lmiky.jdp.constants.Constants {
 	
 	public static final String SYSTEM_URI_PATTERN = BundleUtils.getStringValue(Constants.PROPERTIES_KEY_WEB_FILE, "system.url.pattern").toLowerCase();
 	
+	//视图类别
+	public static final String VIEWTYPE = BundleUtils.getStringValue(Constants.PROPERTIES_KEY_WEB_FILE, "system.viewType");
+	//登陆地址
+	public static final String LOGINURL = BundleUtils.getStringValue(Constants.PROPERTIES_KEY_WEB_FILE, "system.loginUrl");
+	
 	// ****************************************properties文件****************************************//
 	
 	//**********************************************Http参数**********************************************//
