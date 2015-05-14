@@ -27,10 +27,8 @@ public class AreaUtils {
 	 * @throws Exception
 	 */
 	public static String getIpCityCode(String ip) throws Exception {
-		//取段位
-		String searchIp = ip.substring(0, ip.lastIndexOf("."));
 		// 读缓存
-		Object cityCodeObj = redisOperator.hget(REDIS_KEY_IP_CITY, searchIp);
+		Object cityCodeObj = redisOperator.hget(REDIS_KEY_IP_CITY, ip);
 		if (cityCodeObj != null) {
 			return cityCodeObj.toString();
 		}
@@ -45,7 +43,7 @@ public class AreaUtils {
 		if (city != null) {
 			cityCode = city.getCode();
 			try {
-				redisOperator.hset(REDIS_KEY_IP_CITY, searchIp, cityCode);	//设置缓存
+				redisOperator.hset(REDIS_KEY_IP_CITY, ip, cityCode);	//设置缓存
 			} catch (Exception e) {
 				LoggerUtils.logException(e);
 			}

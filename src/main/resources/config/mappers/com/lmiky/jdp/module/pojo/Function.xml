@@ -3,7 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.lmiky.jdp.module.pojo.Function">
-	<resultMap type="Function" id="function" extends="com.lmiky.jdp.database.pojo.BasePojo.basePojo">
+	<resultMap type="Function" id="function" extends="com.lmiky.jdp.sort.pojo.BaseSortPojo.baseSortPojo">
 		<result column="name" property="name"/>
 		<result column="authorityCode" property="authorityCode"/>
 		<association property="module" column="moduleId" select="com.lmiky.jdp.module.pojo.Module.findById"/>
@@ -54,6 +54,7 @@
 			,name
 			,moduleId
 			,authorityCode
+			,sort
 		)
 		values
 		(
@@ -61,6 +62,7 @@
 			,#{name}
 			,#{module.id}
 			,#{authorityCode}
+			,#{sort}
 		)
 	</insert>
 	
@@ -70,6 +72,7 @@
 			<if test="name != null">name=#{name},</if>
 			<if test="module != null and module.id != null">moduleId=#{module.id},</if>
 			<if test="authorityCode != null">authorityCode=#{authorityCode},</if>
+			<if test="sort != null">sort=#{sort},</if>
 		</trim>
 		where id=#{id}
 	</update>
