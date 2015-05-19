@@ -6,3 +6,4 @@ target/**/*
 src/main/webapp/WEB-INF/lib/
 src/main/webapp/logs/
 src/main/webapp/files/**/*
+/target
