@@ -162,6 +162,29 @@ public class ValidateUtils {
 		}
 		return true;
 	}
+	
+	/**
+	 * 验证是否正整数
+	 * @author lmiky
+	 * @date 2015年5月19日 上午11:02:21
+	 * @param request
+	 * @param fieldName
+	 * @param fieldDesc
+	 * @param validateErrors
+	 * @return
+	 */
+	public static boolean validatePositiveDigits(HttpServletRequest request, String fieldName, String fieldDesc, List<ValidateError> validateErrors) {
+		String number = request.getParameter(fieldName);
+		if (StringUtils.isBlank(number)) {
+			return false;
+		}
+		try {
+			return Integer.parseInt(number) >= 0;
+		} catch (NumberFormatException e) {
+			validateErrors.add(new ValidateError(fieldName, fieldDesc + "只能输入正整数！"));
+			return false;
+		}
+	}
 
 	/**
 	 * 验证相等
