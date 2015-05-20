@@ -9,6 +9,7 @@ import java.util.Set;
 
 import com.lmiky.jdp.system.menu.model.SubMenu;
 import com.lmiky.jdp.system.menu.model.TopMenu;
+import com.lmiky.jdp.user.pojo.User;
 import com.lmiky.jdp.util.BundleUtils;
 import com.lmiky.jdp.web.constants.Constants;
 
@@ -21,10 +22,7 @@ public class SessionInfo implements Serializable {
 	private static final long serialVersionUID = -585700322706341108L;
 	
 	private String sessionId;
-	private Long userId; // 用户ID
-	private String loginName; // 登录用户名
-	private String password; // 密码
-	private String userName; // 用户姓名
+	private User user;	//用户
 	private Map<String, Boolean> authoritys = new HashMap<String, Boolean>();
 	private Map<String, Boolean> menuFavoriteInfo = new HashMap<String, Boolean>();
 	private String latelyOperateMenuId; // 最后操作的菜单ID
@@ -58,58 +56,44 @@ public class SessionInfo implements Serializable {
 	 * @return the userId
 	 */
 	public Long getUserId() {
-		return userId;
-	}
-
-	/**
-	 * @param userId the userId to set
-	 */
-	public void setUserId(Long userId) {
-		this.userId = userId;
+		return user == null ? null : user.getId();
 	}
 
 	/**
 	 * @return the loginName
 	 */
 	public String getLoginName() {
-		return loginName;
-	}
-
-	/**
-	 * @param loginName the loginName to set
-	 */
-	public void setLoginName(String loginName) {
-		this.loginName = loginName;
+		return user == null ? null : user.getLoginName();
 	}
 
 	/**
 	 * @return the password
 	 */
 	public String getPassword() {
-		return password;
-	}
-
-	/**
-	 * @param password the password to set
-	 */
-	public void setPassword(String password) {
-		this.password = password;
+		return user == null ? null : user.getPassword();
 	}
 
 	/**
 	 * @return the userName
 	 */
 	public String getUserName() {
-		return userName;
+		return user == null ? null : user.getName();
 	}
 
 	/**
-	 * @param userName the userName to set
+	 * @return the user
 	 */
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public User getUser() {
+		return user;
 	}
 
+	/**
+	 * @param user the user to set
+	 */
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
 	/**
 	 * @return the authoritys
 	 */

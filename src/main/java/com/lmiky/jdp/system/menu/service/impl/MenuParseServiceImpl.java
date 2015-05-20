@@ -225,6 +225,10 @@ public class MenuParseServiceImpl implements MenuParseService {
 	public SubMenu getSubMenu(String subMenuId, SessionInfo sessionInfo) throws Exception {
 		SimpleCacheData<SubMenu> cacheData = (SimpleCacheData<SubMenu>) cache.get(CACHE_KEY_SUBMENU_PREFIX + subMenuId);
 		if (cacheData == null) {
+			parse();	//再次解析
+		}
+		cacheData = (SimpleCacheData<SubMenu>) cache.get(CACHE_KEY_SUBMENU_PREFIX + subMenuId);
+		if (cacheData == null) {
 			return null;
 		}
 		SubMenu subMenu = cacheData.getValue();

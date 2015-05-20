@@ -26,10 +26,7 @@ public class SessionServiceImpl implements SessionService {
 			throw new SessionException(SessionException.USER_NULL);
 		}
 		SessionInfo sessionInfo = new SessionInfo();
-		sessionInfo.setUserId(user.getId());
-		sessionInfo.setLoginName(user.getLoginName());
-		sessionInfo.setPassword(user.getPassword());
-		sessionInfo.setUserName(user.getName());
+		sessionInfo.setUser(user);
 		sessionInfo.setSessionId(request.getSession().getId());
 		return sessionInfo;
 	}

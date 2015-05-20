@@ -146,8 +146,9 @@ public abstract class ViewController<T extends BasePojo> extends BasePojoControl
 	 * @param modelMap
 	 * @param request
 	 * @param propertyFilters
+	 * @throws Exception
 	 */
-	protected void appendPropertyFilters(ModelMap modelMap, HttpServletRequest request, List<PropertyFilter> propertyFilters) {
+	protected void appendPropertyFilters(ModelMap modelMap, HttpServletRequest request, List<PropertyFilter> propertyFilters) throws Exception {
 	}
 
 	/**
