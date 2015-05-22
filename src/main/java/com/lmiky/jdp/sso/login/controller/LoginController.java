@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.lmiky.jdp.controller.BaseWebController;
 import com.lmiky.jdp.logger.model.OperateType;
 import com.lmiky.jdp.logger.util.LoggerUtils;
-import com.lmiky.jdp.service.exception.ServiceException;
 import com.lmiky.jdp.session.model.SessionInfo;
 import com.lmiky.jdp.sso.exception.LoginException;
 import com.lmiky.jdp.user.pojo.Operator;
@@ -151,7 +150,7 @@ public class LoginController extends BaseWebController {
 		request.getSession().invalidate();
 		try {
 			LoggerUtils.save(request, null, null, sessionInfo.getUserId(), sessionInfo.getUserName(), OperateType.OPE_TYPE_LOGOUT, this.getClass().getName(), null, service);
-		} catch (ServiceException e) {
+		} catch (Exception e) {
 			logException(e, modelMap, request, response);
 		}
 		return load(modelMap, request, response);

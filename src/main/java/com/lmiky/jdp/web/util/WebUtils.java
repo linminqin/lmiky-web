@@ -21,6 +21,19 @@ import com.lmiky.jdp.web.constants.Constants;
  * @date 2013-6-6
  */
 public class WebUtils {
+	private static SessionService sessionService = null;
+	
+	/**
+	 * @author lmiky
+	 * @date 2015年5月21日 上午9:55:46
+	 * @return
+	 */
+	private synchronized static SessionService getSessionService() {
+		if(sessionService == null) {
+			sessionService = (SessionService)Environment.getBean("sessionService"); 
+		}
+		return sessionService;
+	}
 	
 	/**
 	 * 获取模块
@@ -78,8 +91,7 @@ public class WebUtils {
 	 * @return
 	 */
 	public static SessionInfo getSessionInfo(HttpServletRequest request) {
-		SessionService sessionService = (SessionService)Environment.getBean("sessionService");
-		return sessionService.getSessionInfo(request);
+		return getSessionService().getSessionInfo(request);
 	}
 	
 	/**
