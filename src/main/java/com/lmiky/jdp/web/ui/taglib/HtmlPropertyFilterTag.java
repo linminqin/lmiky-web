@@ -29,6 +29,7 @@ public class HtmlPropertyFilterTag extends BaseHtmlTag {
 	private String label;
 	private String labelStyle;
 	private String labelClass;
+	private String dateFormater;	//日期格式
 
 	public HtmlPropertyFilterTag() {
 		super();
@@ -44,6 +45,7 @@ public class HtmlPropertyFilterTag extends BaseHtmlTag {
 		this.compareType = null;
 		this.inputType = null;
 		this.label = null;
+		this.dateFormater = null;
 	}
 
 	/*
@@ -100,7 +102,9 @@ public class HtmlPropertyFilterTag extends BaseHtmlTag {
 		StringBuffer inputHtml = new StringBuffer("<input  ");
 		if (INPUT_TYPE_DATE.equals(inputType) || INPUT_TYPE_BEGINDATE.equals(inputType) || INPUT_TYPE_ENDDATE.equals(inputType) || INPUT_TYPE_DATETIME.equals(inputType)) {
 			inputHtml.append(" onFocus=\"WdatePicker({readOnly:true, dateFmt:'");
-			if (INPUT_TYPE_DATE.equals(inputType) || INPUT_TYPE_BEGINDATE.equals(inputType) || INPUT_TYPE_ENDDATE.equals(inputType)) {
+			if(!StringUtils.isBlank(dateFormater)) {	//有自定义日期格式
+				inputHtml.append(dateFormater);
+			} else if (INPUT_TYPE_DATE.equals(inputType) || INPUT_TYPE_BEGINDATE.equals(inputType) || INPUT_TYPE_ENDDATE.equals(inputType)) {
 				inputHtml.append(Constants.CONTEXT_KEY_FORMAT_DATE_VALUE);
 				if (INPUT_TYPE_BEGINDATE.equals(inputType)) {
 					inputHtml.append(" ").append(DateUtils.getBeginDateTime());
@@ -241,6 +245,20 @@ public class HtmlPropertyFilterTag extends BaseHtmlTag {
 	 */
 	public void setLabelClass(String labelClass) {
 		this.labelClass = labelClass;
+	}
+
+	/**
+	 * @return the dateFormater
+	 */
+	public String getDateFormater() {
+		return dateFormater;
+	}
+
+	/**
+	 * @param dateFormater the dateFormater to set
+	 */
+	public void setDateFormater(String dateFormater) {
+		this.dateFormater = dateFormater;
 	}
 
 }
