@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.ui.ModelMap;
 
-import com.lmiky.jdp.controller.BaseWebController;
 import com.lmiky.jdp.controller.BasePojoController;
+import com.lmiky.jdp.controller.BaseWebController;
 import com.lmiky.jdp.database.model.PropertyFilter;
 import com.lmiky.jdp.database.model.Sort;
 import com.lmiky.jdp.database.pojo.BasePojo;
@@ -73,8 +73,9 @@ public abstract class ViewController<T extends BasePojo> extends BasePojoControl
 			List<Sort> sorts = generateSorts(modelMap, request);
 			modelMap.put("sorts", sorts);
 			// 查询分页内容，将分页信息设入页面
-			modelMap.put("page", fillPage(page, modelMap, request, propertyFilters, sorts, null));
-			appendListAttribute(modelMap, request, resopnse);
+			Map<String, Object> otherElements = buildOtherPageElements(page, modelMap, request);
+			modelMap.put("page", fillPage(page, modelMap, request, propertyFilters, sorts, otherElements));
+			appendListAttribute(modelMap, request, resopnse, propertyFilters, sorts, otherElements);
 			//设置模块
 			String modulePath = getModulePath(modelMap, request);
 			modelMap.put(Constants.HTTP_PARAM_MODULE_PATH, modulePath);
@@ -108,6 +109,19 @@ public abstract class ViewController<T extends BasePojo> extends BasePojoControl
 	 */
 	protected void resetPage(Page<T> page, ModelMap modelMap, HttpServletRequest request) {
 		page.pageAction();
+	}
+	
+	/**
+	 * 生成其他页面参数
+	 * @author lmiky
+	 * @date 2015年5月25日 上午9:45:03
+	 * @param page
+	 * @param modelMap
+	 * @param request
+	 * @return
+	 */
+	protected Map<String, Object> buildOtherPageElements(Page<T> page, ModelMap modelMap, HttpServletRequest request) {
+		return null;
 	}
 	
 	/**
@@ -239,6 +253,22 @@ public abstract class ViewController<T extends BasePojo> extends BasePojoControl
 	 * @throws Exception
 	 */
 	protected void appendListAttribute(ModelMap modelMap, HttpServletRequest request, HttpServletResponse resopnse) throws Exception {
+		appendListAttribute(modelMap, request, resopnse, null, null, null);
+	}
+	
+	/**
+	 * 追加属性
+	 * @author lmiky
+	 * @date 2015年5月25日 上午9:42:51
+	 * @param modelMap
+	 * @param request
+	 * @param resopnse
+	 * @param propertyFilters
+	 * @param sorts
+	 * @param otherElements
+	 * @throws Exception
+	 */
+	protected void appendListAttribute(ModelMap modelMap, HttpServletRequest request, HttpServletResponse resopnse, List<PropertyFilter> propertyFilters, List<Sort> sorts, Map<String, Object> otherElements) throws Exception {
 		modelMap.put(Constants.HTTP_PARAM_POJO_CLASSNAME, pojoClass.getName());
 	}
 

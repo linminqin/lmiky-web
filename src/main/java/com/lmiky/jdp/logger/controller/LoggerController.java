@@ -25,19 +25,20 @@ import com.lmiky.jdp.web.page.model.Page;
  * 日志
  * @author lmiky
  * @date 2014-7-16
- */ 
+ */
 @Controller
- @RequestMapping("/logger")
+@RequestMapping("/logger")
 public class LoggerController extends ViewController<Logger> {
-	private String contentFormat;				//内容格式
-	private String logdescInclude;				//内容包含符号
-	private String logdescIncludeBegin;		//内容包含符号开头
-	private String logdescIncludeEnd;		//内容包含符号结尾
+	private String contentFormat; // 内容格式
+	private String logdescInclude; // 内容包含符号
+	private String logdescIncludeBegin; // 内容包含符号开头
+	private String logdescIncludeEnd; // 内容包含符号结尾
+
 	public LoggerController() {
 		super();
 		contentFormat = BundleUtils.getStringValue(Constants.PROPERTIES_KEY_WEB_FILE, "system.logger.view.content.format");
 		logdescInclude = BundleUtils.getStringValue(Constants.PROPERTIES_KEY_WEB_FILE, "system.logger.view.logdesc.include");
-		if(StringUtils.isBlank(logdescInclude) || logdescInclude.length() < 2) {
+		if (StringUtils.isBlank(logdescInclude) || logdescInclude.length() < 2) {
 			logdescIncludeBegin = "";
 			logdescIncludeEnd = "";
 		} else {
@@ -45,8 +46,9 @@ public class LoggerController extends ViewController<Logger> {
 			logdescIncludeEnd = logdescInclude.substring(1);
 		}
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
 	 * @see com.lmiky.jdp.base.controller.BaseController#getLoadAuthorityCode(org.springframework.ui.ModelMap, javax.servlet.http.HttpServletRequest)
 	 */
 	@Override
@@ -69,7 +71,8 @@ public class LoggerController extends ViewController<Logger> {
 		return executeList(modelMap, request, resopnse);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see com.lmiky.jdp.web.controller.BaseController#getDefaultSort(org.springframework.ui.ModelMap, javax.servlet.http.HttpServletRequest)
 	 */
 	@Override
@@ -79,33 +82,33 @@ public class LoggerController extends ViewController<Logger> {
 		return sorts;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.lmiky.jdp.view.controller.ViewController#fillPage(com.lmiky.jdp.web.page.model.Page, org.springframework.ui.ModelMap, javax.servlet.http.HttpServletRequest, java.util.List, java.util.List, java.util.Map)
+	/*
+	 * (non-Javadoc)
+	 * @see com.lmiky.jdp.view.controller.ViewController#fillPage(com.lmiky.jdp.web.page.model.Page, org.springframework.ui.ModelMap, javax.servlet.http.HttpServletRequest, java.util.List,
+	 * java.util.List, java.util.Map)
 	 */
 	@Override
-	protected Page<Logger> fillPage(Page<Logger> page, ModelMap modelMap, HttpServletRequest request, List<PropertyFilter> propertyFilters,
-			List<Sort> sorts, Map<String, Object> otherElements) {
+	protected Page<Logger> fillPage(Page<Logger> page, ModelMap modelMap, HttpServletRequest request, List<PropertyFilter> propertyFilters, List<Sort> sorts, Map<String, Object> otherElements) {
 		Page<Logger> retPage = super.fillPage(page, modelMap, request, propertyFilters, sorts, otherElements);
 		List<Logger> items = retPage.getItems();
 		String contet = "";
-		for(Logger logger : items) {
-			contet = contentFormat.replaceAll("@userName@", logger.getUserName())	//
+		for (Logger logger : items) {
+			contet = contentFormat.replaceAll("@userName@", logger.getUserName()) //
 					.replaceAll("@logTime@", DateUtils.formatTime(logger.getLogTime()))//
-					.replaceAll("@ip@", logger.getIp() == null ? "" : logger.getIp())
-					.replaceAll("@opeName@", LoggerUtils.getOpeName(logger.getOpeType()));
-			if(!StringUtils.isBlank(logger.getPojoName())) {
+					.replaceAll("@ip@", logger.getIp() == null ? "" : logger.getIp()).replaceAll("@opeName@", LoggerUtils.getOpeName(logger.getOpeType()));
+			if (!StringUtils.isBlank(logger.getPojoName())) {
 				contet = contet.replaceAll("@pojoName@", LoggerUtils.getPojoName(logger.getPojoName()));
 			} else {
 				contet = contet.replaceAll("@pojoName@", "");
 			}
-			if(!StringUtils.isBlank(logger.getLogDesc())) {
+			if (!StringUtils.isBlank(logger.getLogDesc())) {
 				contet = contet.replaceAll("@logDesc@", logdescIncludeBegin + logger.getLogDesc() + logdescIncludeEnd);
 			} else {
-				contet = contet.replaceAll("@logDesc@","");
+				contet = contet.replaceAll("@logDesc@", "");
 			}
 			logger.setLogDesc(contet);
 		}
 		return retPage;
 	}
-	
+
 }

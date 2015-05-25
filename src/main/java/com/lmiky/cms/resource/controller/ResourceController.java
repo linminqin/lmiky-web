@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -140,13 +141,12 @@ public class ResourceController extends FormController<CmsResource> {
 		return filters;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see com.lmiky.jdp.view.controller.ViewController#appendListAttribute(org.springframework.ui.ModelMap, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	/* (non-Javadoc)
+	 * @see com.lmiky.jdp.view.controller.ViewController#appendListAttribute(org.springframework.ui.ModelMap, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.util.List, java.util.List, java.util.Map)
 	 */
 	@Override
-	protected void appendListAttribute(ModelMap modelMap, HttpServletRequest request, HttpServletResponse resopnse) throws Exception {
-		super.appendListAttribute(modelMap, request, resopnse);
+	protected void appendListAttribute(ModelMap modelMap, HttpServletRequest request, HttpServletResponse resopnse, List<PropertyFilter> propertyFilters, List<Sort> sorts, Map<String, Object> otherElements) throws Exception {
+		super.appendListAttribute(modelMap, request, resopnse, propertyFilters, sorts, otherElements);
 		// 获取所属栏目
 		String directoryId = request.getParameter("directoryId");
 		if (!StringUtils.isBlank(directoryId)) {
