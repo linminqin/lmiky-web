@@ -28,6 +28,12 @@
 		where id = #{id}
 	</select>
 	
+	<select id="findByCode" resultMap="city">
+		select * from 
+		<include refid="tableName"/>
+		where code = #{code}
+	</select>
+	
 	<select id="listByProvince" resultMap="city">
 		select * from 
 		<include refid="tableName"/>	
