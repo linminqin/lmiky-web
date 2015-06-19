@@ -6,7 +6,7 @@
 	<groupId>com.lmiky</groupId>
 	<artifactId>web</artifactId>
 	<version>0.2</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<properties>
 		<com.lmiky.version>0.2</com.lmiky.version>
