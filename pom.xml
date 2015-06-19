@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.lmiky</groupId>
-	<artifactId>lmiky-web</artifactId>
+	<artifactId>web</artifactId>
 	<version>0.2</version>
 	<packaging>war</packaging>
 
