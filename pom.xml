@@ -9,7 +9,7 @@
 	<packaging>jar</packaging>
 
 	<properties>
-		<com.lmiky.version>0.2</com.lmiky.version>
+		<com.lmiky.core.version>0.2</com.lmiky.core.version>
 		<org.springframework.version>3.2.9.RELEASE</org.springframework.version>
 	</properties>
 
@@ -18,8 +18,8 @@
 		<!-- lmiky -->
 		<dependency>
 			<groupId>com.lmiky</groupId>
-			<artifactId>lmiky-core</artifactId>
-			<version>${com.lmiky.version}</version>
+			<artifactId>core</artifactId>
+			<version>${com.lmiky.core.version}</version>
 		</dependency>
 		
 		<!-- Servlet -->
